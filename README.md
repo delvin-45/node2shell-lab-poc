@@ -13,7 +13,8 @@ contains three small applications, a stdlib-only Python proof of concept, and
 raw run logs. Two exact-binary profiles returned fresh `id` output in 2/2
 fresh containers; the third profile reproduced denial of service in 2/2.
 The RCE result is profile-specific and probabilistic. It is not a claim about
-every Node.js deployment.
+every Node.js deployment. Read this page in
+[Bahasa Indonesia](README.id.md).
 
 [![Node.js](https://img.shields.io/badge/Node.js-24.22.0%20affected-339933?logo=node.js&logoColor=white)](https://nodejs.org/en/blog/vulnerability/october-2026-security-releases)
 [![Docker](https://img.shields.io/badge/Docker-linux%2Famd64-2496ED?logo=docker&logoColor=white)](https://docs.docker.com/)
