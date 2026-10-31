@@ -1,0 +1,32 @@
+Node2Shell Lab evidence
+started_at_utc=2026-10-31T14:51:16Z
+lab=ref-express
+kind=patched
+mode=rce
+image=node2shell-lab:ref-24.22.1
+profile=n2s-ref-express-patched-24.22.1-x86_64
+build_command=docker build --pull --platform linux/amd64 -f lab/reference-express/Dockerfile.patched -t node2shell-lab:ref-24.22.1 lab/reference-express
+run_command=docker run -d --name n2s-evidence-ref-express-patched-control -p 127.0.0.1:3000:3000 node2shell-lab:ref-24.22.1
+poc_command=python -u poc.py --profile n2s-ref-express-patched-24.22.1-x86_64 --mode rce --timeout 30
+
+image_id=sha256:5b477440b1ccf167850d97c01eb484f7705eeb23382bb3c0380106f327b4ec08
+node_version=v24.22.1
+node_binary=e32e2d16081cf644f88392934288086e7662529d0d43277c34f7aad2207cfafb  /usr/local/bin/node
+
+container_id=c47f82dde34b6ebf6e0081198598b9a6d2cffc445b541c94d64a0dab0ea12d3e
+
+--- POC OUTPUT ---
+PASS: patched control failed closed
+profile=n2s-ref-express-patched-24.22.1-x86_64
+mode=rce
+error_seen=ERR__ERROR_FORMAT_BLOCK_SWITCH
+post_attempt_health=PONG
+poc_exit=0
+
+--- OPERATOR OBSERVATION (after poc.py exited) ---
+docker_inspect=status=running exit=0 started=2026-10-31T14:51:20.907597517Z finished=0001-01-01T00:00:00Z
+post_attempt_health=PONG
+--- CONTAINER LOG TAIL ---
+
+finished_at_utc=2026-10-31T14:51:25Z
+result=PASS

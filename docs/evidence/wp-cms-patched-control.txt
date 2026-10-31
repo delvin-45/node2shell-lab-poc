@@ -1,0 +1,32 @@
+Node2Shell Lab evidence
+started_at_utc=2026-10-31T14:51:27Z
+lab=wp-cms
+kind=patched
+mode=rce
+image=node2shell-lab:wp-24.22.1
+profile=n2s-wp-patched-24.22.1-x86_64
+build_command=docker build --pull --platform linux/amd64 -f lab/wp-cms/Dockerfile.patched -t node2shell-lab:wp-24.22.1 lab/wp-cms
+run_command=docker run -d --name n2s-evidence-wp-cms-patched-control -p 127.0.0.1:3000:3000 node2shell-lab:wp-24.22.1
+poc_command=python -u poc.py --profile n2s-wp-patched-24.22.1-x86_64 --mode rce --timeout 30
+
+image_id=sha256:df5549f3ab1dafa0b42402e065762ac78514d6771829a46a2c7a25a6352e0733
+node_version=v24.22.1
+node_binary=e32e2d16081cf644f88392934288086e7662529d0d43277c34f7aad2207cfafb  /usr/local/bin/node
+
+container_id=eb4b1a0c33f7f423d0a3f5b55ae5f7828fd773c74ba019e30b8d400f00821ff6
+
+--- POC OUTPUT ---
+PASS: patched control failed closed
+profile=n2s-wp-patched-24.22.1-x86_64
+mode=rce
+error_seen=ERR__ERROR_FORMAT_BLOCK_SWITCH
+post_attempt_health=PONG
+poc_exit=0
+
+--- OPERATOR OBSERVATION (after poc.py exited) ---
+docker_inspect=status=running exit=0 started=2026-10-31T14:51:30.411256267Z finished=0001-01-01T00:00:00Z
+post_attempt_health=PONG
+--- CONTAINER LOG TAIL ---
+
+finished_at_utc=2026-10-31T14:51:35Z
+result=PASS

@@ -1,0 +1,32 @@
+Node2Shell Lab evidence
+started_at_utc=2026-10-31T14:49:58Z
+lab=wp-cms
+kind=dos
+mode=dos
+image=node2shell-lab:wp-24.22.0
+profile=n2s-wp-24.22.0-x86_64
+build_command=docker build --pull --platform linux/amd64 -f lab/wp-cms/Dockerfile -t node2shell-lab:wp-24.22.0 lab/wp-cms
+run_command=docker run -d --name n2s-evidence-wp-cms-dos-run2 -p 127.0.0.1:3000:3000 node2shell-lab:wp-24.22.0
+poc_command=python -u poc.py --profile n2s-wp-24.22.0-x86_64 --mode dos --timeout 30
+
+image_id=sha256:5efc5069a5ca4292d7fc182805bb2492616d45eff7fe2cb14c56b694a5d2cda7
+node_version=v24.22.0
+node_binary=67ca5783febb8bf85736c79fcdd92c8d6d465a0eb2a082672bcdfa76a506751c  /usr/local/bin/node
+
+container_id=45532cba12d90a83a5bc60801849c5203c84625c48a8fc98a494b6f0827e8421
+
+--- POC OUTPUT ---
+PASS: DoS verified through the declared network interface
+profile=n2s-wp-24.22.0-x86_64
+trigger_sha256=b7a6508eb39ef57ae5e3fdf9aa85540071a06eff5d5b5a2d359fc8e1768e4df4
+postcondition=service unavailable
+healthchecks_failed=4/4
+poc_exit=0
+
+--- OPERATOR OBSERVATION (after poc.py exited) ---
+docker_inspect=status=exited exit=139 started=2026-10-31T14:50:02.601055928Z finished=2026-10-31T14:50:05.616631761Z
+post_attempt_health=NO_RESPONSE
+--- CONTAINER LOG TAIL ---
+
+finished_at_utc=2026-10-31T14:50:13Z
+result=PASS

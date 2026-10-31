@@ -1,0 +1,32 @@
+Node2Shell Lab evidence
+started_at_utc=2026-10-31T14:49:26Z
+lab=ref-express
+kind=dos
+mode=dos
+image=node2shell-lab:ref-24.22.0
+profile=n2s-ref-express-24.22.0-x86_64
+build_command=docker build --pull --platform linux/amd64 -f lab/reference-express/Dockerfile -t node2shell-lab:ref-24.22.0 lab/reference-express
+run_command=docker run -d --name n2s-evidence-ref-express-dos-run2 -p 127.0.0.1:3000:3000 node2shell-lab:ref-24.22.0
+poc_command=python -u poc.py --profile n2s-ref-express-24.22.0-x86_64 --mode dos --timeout 30
+
+image_id=sha256:938786df04f70449d01996f6a84c3de837639ed8970d21ca1055450bfa8526c6
+node_version=v24.22.0
+node_binary=67ca5783febb8bf85736c79fcdd92c8d6d465a0eb2a082672bcdfa76a506751c  /usr/local/bin/node
+
+container_id=07ed8872671935cc8ecf8a5a5f8f2652ed44cda203063aaa8cb51aefbe3042bd
+
+--- POC OUTPUT ---
+PASS: DoS verified through the declared network interface
+profile=n2s-ref-express-24.22.0-x86_64
+trigger_sha256=b7a6508eb39ef57ae5e3fdf9aa85540071a06eff5d5b5a2d359fc8e1768e4df4
+postcondition=service unavailable
+healthchecks_failed=4/4
+poc_exit=0
+
+--- OPERATOR OBSERVATION (after poc.py exited) ---
+docker_inspect=status=exited exit=139 started=2026-10-31T14:49:29.944148144Z finished=2026-10-31T14:49:32.156801856Z
+post_attempt_health=NO_RESPONSE
+--- CONTAINER LOG TAIL ---
+
+finished_at_utc=2026-10-31T14:49:39Z
+result=PASS
