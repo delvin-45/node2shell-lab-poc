@@ -1,5 +1,5 @@
 # Three included labs on unique loopback ports.
-# scan.py performs bounded HEAD/GET probes only; it never invokes poc.py.
+# tools/scan.py performs bounded HEAD/GET probes only; it never invokes poc.py.
 http://127.0.0.1:19200/
 http://127.0.0.1:19201/
 http://127.0.0.1:19202/health

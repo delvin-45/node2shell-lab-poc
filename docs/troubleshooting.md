@@ -98,7 +98,7 @@ render a tape:
 ```powershell
 winget install --id tsl0922.ttyd --exact
 winget install --id charmbracelet.vhs --exact
-vhs docs/demo/scan.tape
+vhs docs/assets/demos/passive-scan.tape
 ```
 
 The checked-in `.gif`, `.mp4`, and `.ascii` files are the recordings from this
@@ -107,5 +107,5 @@ machine, not mockups.
 ## The scan reports `REACHABLE_VERSION_UNKNOWN`
 
 That is expected when the application does not disclose its Node.js version.
-`scan.py` does not guess from a framework header and does not send the PoC. A
+`tools/scan.py` does not guess from a framework header and does not send the PoC. A
 hidden version is not a safe version.

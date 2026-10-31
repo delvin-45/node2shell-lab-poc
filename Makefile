@@ -30,18 +30,18 @@ self-test:
 	$(PYTHON) poc.py --self-test
 
 build-a:
-	docker build --pull --platform $(PLATFORM) -t $(WP_IMAGE) -f lab/wp-cms/Dockerfile lab/wp-cms
+	docker build --pull --platform $(PLATFORM) -t $(WP_IMAGE) -f labs/wp-cms/Dockerfile labs/wp-cms
 
 build-b:
-	docker build --pull --platform $(PLATFORM) -t $(UNFURL_IMAGE) -f lab/unfurl-api/Dockerfile lab/unfurl-api
+	docker build --pull --platform $(PLATFORM) -t $(UNFURL_IMAGE) -f labs/unfurl-api/Dockerfile labs/unfurl-api
 
 build-ref:
-	docker build --pull --platform $(PLATFORM) -t $(REF_IMAGE) -f lab/reference-express/Dockerfile lab/reference-express
+	docker build --pull --platform $(PLATFORM) -t $(REF_IMAGE) -f labs/reference-express/Dockerfile labs/reference-express
 
 build-patched:
-	docker build --pull --platform $(PLATFORM) -t $(REF_PATCHED) -f lab/reference-express/Dockerfile.patched lab/reference-express
-	docker build --pull --platform $(PLATFORM) -t $(WP_PATCHED) -f lab/wp-cms/Dockerfile.patched lab/wp-cms
-	docker build --pull --platform $(PLATFORM) -t $(UNFURL_PATCHED) -f lab/unfurl-api/Dockerfile.patched lab/unfurl-api
+	docker build --pull --platform $(PLATFORM) -t $(REF_PATCHED) -f labs/reference-express/Dockerfile.patched labs/reference-express
+	docker build --pull --platform $(PLATFORM) -t $(WP_PATCHED) -f labs/wp-cms/Dockerfile.patched labs/wp-cms
+	docker build --pull --platform $(PLATFORM) -t $(UNFURL_PATCHED) -f labs/unfurl-api/Dockerfile.patched labs/unfurl-api
 
 lab-a: build-a
 	-docker rm -f n2s-wp
@@ -104,14 +104,14 @@ verify: clean
 	@echo VERIFY PASS: self-test, DoS labs, and patched controls
 
 demo:
-	docker compose -f compose.scan.yaml up -d --build
-	vhs docs/demo/scan.tape
-	-docker compose -f compose.scan.yaml down -v --remove-orphans
-	@echo DEMO PASS: docs/demo/scan.gif
+	docker compose -f deploy/compose.scan.yaml up -d --build
+	vhs docs/assets/demos/passive-scan.tape
+	-docker compose -f deploy/compose.scan.yaml down -v --remove-orphans
+	@echo DEMO PASS: docs/assets/demos/passive-scan.gif
 
 clean:
 	-docker rm -f n2s-wp n2s-unfurl n2s-ref n2s-patched-ref n2s-patched-wp n2s-patched-unfurl
-	-docker compose -f compose.scan.yaml down -v --remove-orphans
+	-docker compose -f deploy/compose.scan.yaml down -v --remove-orphans
 	-docker image rm $(REF_IMAGE) $(WP_IMAGE) $(UNFURL_IMAGE) $(REF_PATCHED) $(WP_PATCHED) $(UNFURL_PATCHED)
 	-docker image rm node2shell-lab-scan-wp-cms node2shell-lab-scan-unfurl-api node2shell-lab-scan-reference-express
 	-$(PYTHON) -c "import shutil; shutil.rmtree('__pycache__', ignore_errors=True)"

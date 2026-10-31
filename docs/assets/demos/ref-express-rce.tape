@@ -1,7 +1,7 @@
 # VHS v0.12.1. Start the reference lab with N2S_SUPERVISE=1 before rendering.
-Output docs/demo/ref-express-rce.gif
-Output docs/demo/ref-express-rce.mp4
-Output docs/demo/ref-express-rce.ascii
+Output docs/assets/demos/ref-express-rce.gif
+Output docs/assets/demos/ref-express-rce.mp4
+Output docs/assets/demos/ref-express-rce.ascii
 
 Set Shell "powershell"
 Set Width 1200

@@ -8,12 +8,12 @@ repository is intended for a public network.
 
 | Component | Role | Runtime |
 | --- | --- | --- |
-| `lab/wp-cms` | WordPress-style CMS with a JSON media sink and an import sink | Node.js v24.22.0, Express 5.3.0 |
-| `lab/unfurl-api` | Link unfurler that consumes an upstream body | Node.js v24.22.0, undici 8.12.3 |
-| `lab/reference-express` | Minimal fixture for the exact-binary RCE profile | Node.js v24.22.0, Express 5.3.0 |
+| `labs/wp-cms` | WordPress-style CMS with a JSON media sink and an import sink | Node.js v24.22.0, Express 5.3.0 |
+| `labs/unfurl-api` | Link unfurler that consumes an upstream body | Node.js v24.22.0, undici 8.12.3 |
+| `labs/reference-express` | Minimal fixture for the exact-binary RCE profile | Node.js v24.22.0, Express 5.3.0 |
 | `poc.py` | Loopback reproducer with fixed payloads and proof checks | Python 3.11+, standard library |
 | `profiles.json` | Exact image, binary, package, probe, and evidence metadata | JSON |
-| `scan.py` | Passive three-asset triage | Python 3.11+, standard library |
+| `tools/scan.py` | Passive three-asset triage | Python 3.11+, standard library |
 
 ## Network layout
 
@@ -22,7 +22,7 @@ flowchart TB
   subgraph Host
     P[poc.py]
     O[Local attacker origin<br/>127.0.0.1:4000]
-    S[scan.py]
+    S[tools/scan.py]
   end
   subgraph Docker
     A[wp-cms<br/>container :3000]

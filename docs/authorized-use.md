@@ -20,19 +20,3 @@ reproduction recipe, not authorization for another host.
 
 If you are validating a production system, use the vendor advisory and the
 fixed release. Do not send the malformed stream outside the included lab.
-
-## Penggunaan berizin
-
-Repositori ini adalah laboratorium siber lokal terbatas untuk riset keamanan,
-validasi perbaikan, dan pendidikan.
-
-Jalankan reproducer hanya terhadap lab Docker loopback yang disertakan. Alat
-ini hanya menerima `127.0.0.1`, `::1`, dan `localhost`, mewajibkan port yang
-sama dengan profil, memakai path tetap, dan tidak menerima perintah dari
-pengguna. Bukti RCE hanya menjalankan `/usr/bin/id` dan mewajibkan keluaran
-`uid=` serta `gid=` yang baru.
-
-Jangan gunakan materi ini untuk mengakses, mengganggu, atau mengambil data
-sistem pihak ketiga; membuat persistensi; menghindari kontrol; atau melakukan
-aktivitas apa pun tanpa izin tertulis. Entri profil bukan izin untuk menguji
-host lain.

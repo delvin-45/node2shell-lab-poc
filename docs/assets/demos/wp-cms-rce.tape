@@ -1,7 +1,7 @@
 # VHS v0.12.1. Start the WP-style lab with N2S_SUPERVISE=1 before rendering.
-Output docs/demo/wp-cms-rce.gif
-Output docs/demo/wp-cms-rce.mp4
-Output docs/demo/wp-cms-rce.ascii
+Output docs/assets/demos/wp-cms-rce.gif
+Output docs/assets/demos/wp-cms-rce.mp4
+Output docs/assets/demos/wp-cms-rce.ascii
 
 Set Shell "powershell"
 Set Width 1200

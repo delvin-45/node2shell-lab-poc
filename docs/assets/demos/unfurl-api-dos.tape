@@ -1,7 +1,7 @@
 # VHS v0.12.1. Start the unfurl lab without a supervisor before rendering.
-Output docs/demo/unfurl-api-dos.gif
-Output docs/demo/unfurl-api-dos.mp4
-Output docs/demo/unfurl-api-dos.ascii
+Output docs/assets/demos/unfurl-api-dos.gif
+Output docs/assets/demos/unfurl-api-dos.mp4
+Output docs/assets/demos/unfurl-api-dos.ascii
 
 Set Shell "powershell"
 Set Width 1200

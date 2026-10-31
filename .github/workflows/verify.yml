@@ -28,12 +28,12 @@ jobs:
 
       - name: Build affected and patched images
         run: |
-          docker build --platform linux/amd64 -t node2shell-lab:wp-24.22.0 -f lab/wp-cms/Dockerfile lab/wp-cms
-          docker build --platform linux/amd64 -t node2shell-lab:unfurl-24.22.0 -f lab/unfurl-api/Dockerfile lab/unfurl-api
-          docker build --platform linux/amd64 -t node2shell-lab:ref-24.22.0 -f lab/reference-express/Dockerfile lab/reference-express
-          docker build --platform linux/amd64 -t node2shell-lab:wp-24.22.1 -f lab/wp-cms/Dockerfile.patched lab/wp-cms
-          docker build --platform linux/amd64 -t node2shell-lab:unfurl-24.22.1 -f lab/unfurl-api/Dockerfile.patched lab/unfurl-api
-          docker build --platform linux/amd64 -t node2shell-lab:ref-24.22.1 -f lab/reference-express/Dockerfile.patched lab/reference-express
+          docker build --platform linux/amd64 -t node2shell-lab:wp-24.22.0 -f labs/wp-cms/Dockerfile labs/wp-cms
+          docker build --platform linux/amd64 -t node2shell-lab:unfurl-24.22.0 -f labs/unfurl-api/Dockerfile labs/unfurl-api
+          docker build --platform linux/amd64 -t node2shell-lab:ref-24.22.0 -f labs/reference-express/Dockerfile labs/reference-express
+          docker build --platform linux/amd64 -t node2shell-lab:wp-24.22.1 -f labs/wp-cms/Dockerfile.patched labs/wp-cms
+          docker build --platform linux/amd64 -t node2shell-lab:unfurl-24.22.1 -f labs/unfurl-api/Dockerfile.patched labs/unfurl-api
+          docker build --platform linux/amd64 -t node2shell-lab:ref-24.22.1 -f labs/reference-express/Dockerfile.patched labs/reference-express
 
       - name: Verify CMS denial of service
         run: |

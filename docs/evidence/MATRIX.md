@@ -63,7 +63,7 @@ The full list is in [SHA256SUMS](SHA256SUMS). It is generated from every
   body limits reduce exposure but do not repair the decoder.
 - Non-x86-64 platforms, other libc versions, Windows containers, or native
   Node.js installations.
-- Production scanner coverage. `scan.py` is a bounded, passive triage tool and
+- Production scanner coverage. `tools/scan.py` is a bounded, passive triage tool and
   does not determine exploitability.
 - Authenticity of any third-party advisory beyond the links published in the
   README. The evidence in this directory is limited to the local runs above.

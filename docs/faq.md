@@ -56,7 +56,7 @@ as a proof and limits misuse.
 
 No. `poc.py` accepts only `127.0.0.1`, `::1`, and `localhost`, and the port must
 match the selected profile. The lab's outbound fetchers also restrict targets.
-See [AUTHORIZED_USE.md](../AUTHORIZED_USE.md).
+See [authorized-use.md](authorized-use.md).
 
 ## Why does `make verify` not run RCE?
 
@@ -69,7 +69,7 @@ two-container evidence set. Keeping the gate deterministic makes CI useful.
 Node.js does not send its version by default, and the labs do not add a
 diagnostic header. The scanner reports `RUNTIME_DETECTED_VERSION_HIDDEN` or
 `REACHABLE_VERSION_UNKNOWN` instead of guessing. See
-[`scan.py`](../scan.py).
+[`tools/scan.py`](../tools/scan.py).
 
 ## Is the trigger safe to send anywhere else?
 

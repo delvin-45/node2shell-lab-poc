@@ -16,7 +16,7 @@ options, no earlier body middleware, and the stock error handler.
 ## Run
 
 ```bash
-docker build -t node2shell-lab:ref-24.22.0 -f lab/reference-express/Dockerfile lab/reference-express
+docker build -t node2shell-lab:ref-24.22.0 -f labs/reference-express/Dockerfile labs/reference-express
 docker run --rm -d --name n2s-ref -p 127.0.0.1:3000:3000 node2shell-lab:ref-24.22.0
 python poc.py --profile n2s-ref-express-24.22.0-x86_64
 ```
@@ -36,7 +36,7 @@ docker run --rm -d --name n2s-ref -e N2S_SUPERVISE=1 -e UV_THREADPOOL_SIZE=1 \
 `ERR__ERROR_FORMAT_BLOCK_SWITCH` and the health endpoint stays available.
 
 ```bash
-docker build -t node2shell-lab:ref-24.22.1 -f lab/reference-express/Dockerfile.patched lab/reference-express
+docker build -t node2shell-lab:ref-24.22.1 -f labs/reference-express/Dockerfile.patched labs/reference-express
 docker run --rm -d --name n2s-ref-patched -p 127.0.0.1:3000:3000 node2shell-lab:ref-24.22.1
 python poc.py --profile n2s-ref-express-patched-24.22.1-x86_64
 ```

@@ -1,6 +1,6 @@
 # WordPress-style CMS lab
 
-`lab/wp-cms` is a Node.js application shaped like a small WordPress
+`labs/wp-cms` is a Node.js application shaped like a small WordPress
 installation. It is not WordPress, it does not run PHP, and it has no database.
 The shape exists to place the decoder sink behind a realistic publishing
 workflow.
@@ -77,7 +77,7 @@ one-worker configuration, accepted socket descriptor, and supervisor.
 ## Run
 
 ```bash
-docker build -t node2shell-lab:wp-24.22.0 -f lab/wp-cms/Dockerfile lab/wp-cms
+docker build -t node2shell-lab:wp-24.22.0 -f labs/wp-cms/Dockerfile labs/wp-cms
 docker run --rm -d --name n2s-wp -e N2S_SUPERVISE=1 -e UV_THREADPOOL_SIZE=1 \
   -p 127.0.0.1:3000:3000 node2shell-lab:wp-24.22.0
 python poc.py --profile n2s-wp-24.22.0-x86_64 --mode rce
@@ -88,7 +88,7 @@ For the DoS check, omit `N2S_SUPERVISE=1` and use `--mode dos`.
 ## Patched control
 
 ```bash
-docker build -t node2shell-lab:wp-24.22.1 -f lab/wp-cms/Dockerfile.patched lab/wp-cms
+docker build -t node2shell-lab:wp-24.22.1 -f labs/wp-cms/Dockerfile.patched labs/wp-cms
 docker run --rm -d --name n2s-wp-patched -p 127.0.0.1:3000:3000 node2shell-lab:wp-24.22.1
 python poc.py --profile n2s-wp-patched-24.22.1-x86_64
 ```

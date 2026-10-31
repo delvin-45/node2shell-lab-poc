@@ -3,6 +3,18 @@
 All notable changes to this project are documented here.
 The format follows Keep a Changelog, and the project uses Semantic Versioning.
 
+## [1.1.0] - 2026-10-31
+
+### Changed
+
+- Reorganized the repository into `assets/`, `deploy/`, `docs/`, `labs/`, and
+  `tools/`.
+- Replaced the text banner with a generated research banner and rebuilt the
+  README around the verified lab matrix, demo capture, and evidence.
+- Moved governance files to `.github/` and authorized-use guidance to
+  `docs/`.
+- Removed the duplicate Indonesian README and the internal rebuild plan.
+
 ## [1.0.0] - 2026-10-31
 
 ### Added

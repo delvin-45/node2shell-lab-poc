@@ -4,7 +4,7 @@ services:
   wp-cms:
     platform: linux/amd64
     build:
-      context: ./lab/wp-cms
+      context: ../labs/wp-cms
       dockerfile: Dockerfile
     ports:
       - "127.0.0.1:19200:3000"
@@ -12,7 +12,7 @@ services:
   unfurl-api:
     platform: linux/amd64
     build:
-      context: ./lab/unfurl-api
+      context: ../labs/unfurl-api
       dockerfile: Dockerfile
     ports:
       - "127.0.0.1:19201:3000"
@@ -20,7 +20,7 @@ services:
   reference-express:
     platform: linux/amd64
     build:
-      context: ./lab/reference-express
+      context: ../labs/reference-express
       dockerfile: Dockerfile
     ports:
       - "127.0.0.1:19202:3000"

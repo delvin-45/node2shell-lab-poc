@@ -38,17 +38,13 @@
       .wrap { width: min(var(--max), calc(100% - 2.5rem)); margin: 0 auto; }
 
       header.hero { padding: 4rem 0 2rem; border-bottom: 1px solid var(--line); }
-      .banner {
-        margin: 0 0 2rem;
-        padding: 0.9rem 1rem;
+      .hero-banner {
+        display: block;
+        width: 100%;
+        height: auto;
+        margin-bottom: 2rem;
         border: 1px solid var(--line);
-        border-radius: 8px;
-        background: var(--panel-2);
-        color: var(--teal);
-        font-size: clamp(0.55rem, 1.35vw, 0.85rem);
-        line-height: 1.05;
-        letter-spacing: 0;
-        overflow-x: auto;
+        border-radius: 10px;
       }
       .eyebrow {
         margin: 0 0 0.7rem;
@@ -193,10 +189,7 @@
   <body>
     <header class="hero">
       <div class="wrap">
-        <pre class="banner" aria-label="Node2Shell Lab banner"> _  _  ___  ___ ___   ___ _  _ ___ _    _    _   ___
-| \| |/ _ \|   \ __| / __| || | __| |  | |  /_\ | _ )
-| .` | (_) | |) / _| \__ \ __ | _|| |__| |_/ _ \| _ \
-|_|\_|\___/|___/___| |___/_||_|___|____|____/ \_\___/</pre>
+        <img class="hero-banner" src="assets/banner.png" alt="Node2Shell Lab — CVE-2026-111497">
         <p class="eyebrow">CVE-2026-111497 · research lab</p>
         <h1>One decoder bug.<br>Three honest labs.</h1>
         <p class="lede">
@@ -250,7 +243,7 @@
             <span class="tag">Reference</span>
             <h3>Reference Express</h3>
             <p>The minimal fixture that preserves the exact-binary RCE profile: one parser, one worker, one supervisor, one fixed proof.</p>
-            <p class="foot"><span class="ok">RCE 2/2</span> · <span class="ok">DoS 2/2</span> · <a href="../lab/reference-express/README.md">lab notes</a></p>
+            <p class="foot"><span class="ok">RCE 2/2</span> · <span class="ok">DoS 2/2</span> · <a href="../labs/reference-express/README.md">lab notes</a></p>
           </article>
         </div>
       </section>
@@ -260,7 +253,7 @@
         <h2>What the terminal actually returned</h2>
         <div class="split">
           <figure>
-            <img src="media/wp-cms-home.png" alt="Screenshot of the WordPress-style CMS front page" loading="lazy">
+            <img src="assets/screenshots/wp-cms-home.png" alt="Screenshot of the WordPress-style CMS front page" loading="lazy">
             <figcaption>The CMS front page, captured with headless Chrome from the running container.</figcaption>
           </figure>
           <div class="panel">
@@ -325,13 +318,12 @@ make clean</pre>
     <footer class="wrap">
       <nav>
         <a href="../README.md">README</a>
-        <a href="../README.id.md">Bahasa Indonesia</a>
         <a href="architecture.md">Architecture</a>
         <a href="exploit-walkthrough.md">Walkthrough</a>
         <a href="faq.md">FAQ</a>
-        <a href="../SECURITY.md">Security</a>
+        <a href="../.github/SECURITY.md">Security</a>
       </nav>
-      <p>Node2Shell Lab · MIT · 2026 · Built for loopback only. See <a href="../AUTHORIZED_USE.md">authorized use</a>.</p>
+      <p>Node2Shell Lab · MIT · 2026 · Built for loopback only. See <a href="authorized-use.md">authorized use</a>.</p>
     </footer>
   </body>
 </html>

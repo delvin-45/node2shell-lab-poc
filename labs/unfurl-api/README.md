@@ -20,7 +20,7 @@ an arbitrary outbound fetch proxy.
 ## Run
 
 ```bash
-docker build -t node2shell-lab:unfurl-24.22.0 -f lab/unfurl-api/Dockerfile lab/unfurl-api
+docker build -t node2shell-lab:unfurl-24.22.0 -f labs/unfurl-api/Dockerfile labs/unfurl-api
 docker run --rm -d --name n2s-unfurl -p 127.0.0.1:3000:3000 node2shell-lab:unfurl-24.22.0
 curl http://127.0.0.1:3000/health
 ```
@@ -33,7 +33,7 @@ provide that name automatically.
 ## Patched control
 
 ```bash
-docker build -t node2shell-lab:unfurl-24.22.1 -f lab/unfurl-api/Dockerfile.patched lab/unfurl-api
+docker build -t node2shell-lab:unfurl-24.22.1 -f labs/unfurl-api/Dockerfile.patched labs/unfurl-api
 ```
 
 The patched control uses the same source and lockfile with Node.js v24.22.1.

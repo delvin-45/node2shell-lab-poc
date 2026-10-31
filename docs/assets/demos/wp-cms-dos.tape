@@ -1,7 +1,7 @@
 # VHS v0.12.1. Start the WP-style lab without a supervisor before rendering.
-Output docs/demo/wp-cms-dos.gif
-Output docs/demo/wp-cms-dos.mp4
-Output docs/demo/wp-cms-dos.ascii
+Output docs/assets/demos/wp-cms-dos.gif
+Output docs/assets/demos/wp-cms-dos.mp4
+Output docs/assets/demos/wp-cms-dos.ascii
 
 Set Shell "powershell"
 Set Width 1200

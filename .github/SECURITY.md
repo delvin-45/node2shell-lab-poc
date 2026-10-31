@@ -3,7 +3,7 @@
 ## Scope
 
 This repository is a deliberately vulnerable research lab. The applications
-in `lab/` are not safe to expose to a network. They are built to run on
+in `labs/` are not safe to expose to a network. They are built to run on
 loopback with pinned, affected runtimes.
 
 The maintainer welcomes reports about the lab harness itself, including:
@@ -27,7 +27,7 @@ Please do not open a public issue for a harness escape or a secret leak.
 
 Testing is authorized only against the included loopback labs on a machine you
 control. Nothing in this repository grants permission to test another system.
-See [AUTHORIZED_USE.md](AUTHORIZED_USE.md).
+See [docs/authorized-use.md](../docs/authorized-use.md).
 
 ## Supported versions
 

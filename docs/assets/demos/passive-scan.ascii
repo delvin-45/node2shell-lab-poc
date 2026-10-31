@@ -301,7 +301,7 @@
 
 
 ────────────────────────────────────────────────────────────────────────────────
-> python scan.py --assets assets.txt
+> python tools/scan.py --assets deploy/targets.txt
 
 
 
@@ -327,7 +327,7 @@
 
 
 ────────────────────────────────────────────────────────────────────────────────
-> python scan.py --assets assets.txt
+> python tools/scan.py --assets deploy/targets.txt
 
 
 
@@ -353,8 +353,8 @@
 
 
 ────────────────────────────────────────────────────────────────────────────────
-> python scan.py --assets assets.txt
-[*] loaded 3 unique assets from assets.txt
+> python tools/scan.py --assets deploy/targets.txt
+[*] loaded 3 unique assets from deploy\targets.txt
 [*] passive mode: bounded HEAD/GET or zero-byte TCP connect; no exploit or availability test
 ASSET                          STATUS                           EXPOSURE                   SIGNALS
 -----------------------------  -------------------------------  -------------------------  --------------
@@ -379,8 +379,8 @@ ess,transport:http
 
 
 ────────────────────────────────────────────────────────────────────────────────
-> python scan.py --assets assets.txt
-[*] loaded 3 unique assets from assets.txt
+> python tools/scan.py --assets deploy/targets.txt
+[*] loaded 3 unique assets from deploy\targets.txt
 [*] passive mode: bounded HEAD/GET or zero-byte TCP connect; no exploit or availability test
 ASSET                          STATUS                           EXPOSURE                   SIGNALS
 -----------------------------  -------------------------------  -------------------------  --------------

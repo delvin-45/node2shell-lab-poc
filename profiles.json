@@ -8,8 +8,8 @@
       "scope": "Exact Node.js v24.22.0 Express 5.3.0 fixture with body-parser 2.4.0, default express.json(), one libuv worker, and the restart supervisor",
       "image": "node@sha256:925de64a85319052d6971ae81ef2417da956e8a3a2c4a0fac732327970f017f5",
       "lab": {
-        "dockerfile": "lab/reference-express/Dockerfile",
-        "patched_dockerfile": "lab/reference-express/Dockerfile.patched",
+        "dockerfile": "labs/reference-express/Dockerfile",
+        "patched_dockerfile": "labs/reference-express/Dockerfile.patched",
         "tag": "node2shell-lab:ref-24.22.0"
       },
       "fingerprint": {
@@ -87,8 +87,8 @@
       "scope": "Exact Node.js v24.22.0 WordPress-style CMS with route-scoped default express.json() on the media sink and a loopback URL import sink",
       "image": "node@sha256:925de64a85319052d6971ae81ef2417da956e8a3a2c4a0fac732327970f017f5",
       "lab": {
-        "dockerfile": "lab/wp-cms/Dockerfile",
-        "patched_dockerfile": "lab/wp-cms/Dockerfile.patched",
+        "dockerfile": "labs/wp-cms/Dockerfile",
+        "patched_dockerfile": "labs/wp-cms/Dockerfile.patched",
         "tag": "node2shell-lab:wp-24.22.0"
       },
       "fingerprint": {
@@ -168,8 +168,8 @@
       "scope": "Exact Node.js v24.22.0 link unfurl API consuming an attacker-controlled Brotli HTTP response through undici 8.12.3",
       "image": "node@sha256:925de64a85319052d6971ae81ef2417da956e8a3a2c4a0fac732327970f017f5",
       "lab": {
-        "dockerfile": "lab/unfurl-api/Dockerfile",
-        "patched_dockerfile": "lab/unfurl-api/Dockerfile.patched",
+        "dockerfile": "labs/unfurl-api/Dockerfile",
+        "patched_dockerfile": "labs/unfurl-api/Dockerfile.patched",
         "tag": "node2shell-lab:unfurl-24.22.0"
       },
       "fingerprint": {
@@ -217,7 +217,7 @@
       "scope": "Patched Node.js v24.22.1 control with the same reference Express source and package lock",
       "image": "node@sha256:6449e19d8184d84062525b6a7524def03146c2cb04a7f08b076680d0e8e4240a",
       "lab": {
-        "dockerfile": "lab/reference-express/Dockerfile.patched",
+        "dockerfile": "labs/reference-express/Dockerfile.patched",
         "tag": "node2shell-lab:ref-24.22.1"
       },
       "fingerprint": {
@@ -287,7 +287,7 @@
       "scope": "Patched Node.js v24.22.1 control with the same WordPress-style CMS source and package lock",
       "image": "node@sha256:6449e19d8184d84062525b6a7524def03146c2cb04a7f08b076680d0e8e4240a",
       "lab": {
-        "dockerfile": "lab/wp-cms/Dockerfile.patched",
+        "dockerfile": "labs/wp-cms/Dockerfile.patched",
         "tag": "node2shell-lab:wp-24.22.1"
       },
       "fingerprint": {
@@ -360,7 +360,7 @@
       "scope": "Patched Node.js v24.22.1 control with the same unfurl API source and undici pin",
       "image": "node@sha256:6449e19d8184d84062525b6a7524def03146c2cb04a7f08b076680d0e8e4240a",
       "lab": {
-        "dockerfile": "lab/unfurl-api/Dockerfile.patched",
+        "dockerfile": "labs/unfurl-api/Dockerfile.patched",
         "tag": "node2shell-lab:unfurl-24.22.1"
       },
       "fingerprint": {

@@ -1,6 +1,6 @@
 # Link Unfurl API lab
 
-`lab/unfurl-api` models a chat integration that expands a URL into a small
+`labs/unfurl-api` models a chat integration that expands a URL into a small
 preview. The server fetches the page, reads the whole body, extracts Open Graph
 metadata, and returns JSON.
 
@@ -52,7 +52,7 @@ the caller only wants a title. That consumption is what reaches the decoder.
 ## Run
 
 ```bash
-docker build -t node2shell-lab:unfurl-24.22.0 -f lab/unfurl-api/Dockerfile lab/unfurl-api
+docker build -t node2shell-lab:unfurl-24.22.0 -f labs/unfurl-api/Dockerfile labs/unfurl-api
 docker run --rm -d --name n2s-unfurl -p 127.0.0.1:3000:3000 node2shell-lab:unfurl-24.22.0
 python poc.py --profile n2s-unfurl-24.22.0-x86_64
 ```
@@ -67,7 +67,7 @@ that points at it. On Linux engines without `host.docker.internal`, add:
 ## Patched control
 
 ```bash
-docker build -t node2shell-lab:unfurl-24.22.1 -f lab/unfurl-api/Dockerfile.patched lab/unfurl-api
+docker build -t node2shell-lab:unfurl-24.22.1 -f labs/unfurl-api/Dockerfile.patched labs/unfurl-api
 docker run --rm -d --name n2s-unfurl-patched -p 127.0.0.1:3000:3000 node2shell-lab:unfurl-24.22.1
 python poc.py --profile n2s-unfurl-patched-24.22.1-x86_64
 ```

@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use this lab or its evidence in research, cite the repository."
 type: software
 title: "Node2Shell Lab: CVE-2026-111497 Brotli decoder PoC"
-version: 1.0.0
+version: 1.1.0
 date-released: "2026-10-31"
 license: MIT
 repository-code: "https://github.com/Delvin-45/node2shell-lab-poc"

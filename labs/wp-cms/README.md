@@ -33,7 +33,7 @@ and `host.docker.internal` targets are accepted.
 ## Run
 
 ```bash
-docker build -t node2shell-lab:wp-24.22.0 -f lab/wp-cms/Dockerfile lab/wp-cms
+docker build -t node2shell-lab:wp-24.22.0 -f labs/wp-cms/Dockerfile labs/wp-cms
 docker run --rm -d --name n2s-wp -p 127.0.0.1:3000:3000 node2shell-lab:wp-24.22.0
 curl http://127.0.0.1:3000/health
 ```
@@ -48,7 +48,7 @@ docker run --rm -d --name n2s-wp -e N2S_SUPERVISE=1 -e UV_THREADPOOL_SIZE=1 \
 ## Patched control
 
 ```bash
-docker build -t node2shell-lab:wp-24.22.1 -f lab/wp-cms/Dockerfile.patched lab/wp-cms
+docker build -t node2shell-lab:wp-24.22.1 -f labs/wp-cms/Dockerfile.patched labs/wp-cms
 ```
 
 The patched image keeps the application, package lock, and routes unchanged.
