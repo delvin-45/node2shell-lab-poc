@@ -1,0 +1,16 @@
+<p class="eyebrow">Tools</p>
+<h1>Import from URL</h1>
+<p class="lede">The server fetches the URL and reads the complete response body.</p>
+<form class="panel" method="post" action="/wp-admin/import">
+  <label for="import-url">Remote URL</label>
+  <input id="import-url" name="url" type="url" placeholder="http://host.docker.internal:4000/payload" required>
+  <p class="hint">This lab only allows loopback and host-gateway hosts.</p>
+  <button type="submit">Fetch and inspect</button>
+</form>
+<div class="panel note">
+  <h2>JSON route</h2>
+  <pre><code>POST /wp-json/node2shell/v1/import
+Content-Type: application/json
+
+{"url":"http://host.docker.internal:4000/payload"}</code></pre>
+</div>

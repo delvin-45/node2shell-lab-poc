@@ -1,0 +1,10 @@
+{
+  "name": "node2shell-lab-reference-express",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Minimal Express fixture for the Node2Shell lab",
+  "license": "MIT",
+  "dependencies": {
+    "express": "5.3.0"
+  }
+}

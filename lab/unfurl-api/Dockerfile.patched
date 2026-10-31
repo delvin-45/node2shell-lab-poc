@@ -1,0 +1,21 @@
+ARG NODE_IMAGE=node@sha256:6449e19d8184d84062525b6a7524def03146c2cb04a7f08b076680d0e8e4240a
+FROM ${NODE_IMAGE}
+
+LABEL org.opencontainers.image.title="Node2Shell unfurl API lab (patched control)"
+LABEL org.opencontainers.image.description="Patched Node.js v24.22.1 link unfurl API"
+LABEL org.opencontainers.image.version="24.22.1"
+LABEL org.opencontainers.image.source="https://github.com/Delvin-45/node2shell-lab-poc"
+LABEL org.opencontainers.image.licenses="MIT"
+
+WORKDIR /app
+COPY --chown=node:node src/package*.json ./
+RUN npm ci --omit=dev
+COPY --chown=node:node src/ ./
+COPY --chown=node:node scripts/supervise.sh /usr/local/bin/node2shell-supervise
+RUN chmod 0755 /usr/local/bin/node2shell-supervise
+
+ENV N2S_PORT=3000
+ENV N2S_SUPERVISE=0
+EXPOSE 3000
+USER node
+CMD ["/usr/local/bin/node2shell-supervise"]

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <title>Link Unfurl API</title>
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="eyebrow">Node2Shell Lab</p>
+        <h1>Link Unfurl API</h1>
+        <p class="lede">A small OG scraper. Give it a URL and it fetches the page, reads the complete body, and returns a preview.</p>
+      </header>
+
+      <form id="unfurl-form">
+        <label for="url">URL to unfurl</label>
+        <div class="row">
+          <input id="url" name="url" type="url" value="http://host.docker.internal:4000/" placeholder="http://host.docker.internal:4000/" required>
+          <button type="submit">Unfurl</button>
+        </div>
+        <p class="hint">This lab accepts loopback and host-gateway targets only.</p>
+      </form>
+
+      <section id="result" class="panel" hidden aria-live="polite">
+        <p class="eyebrow">Result</p>
+        <pre id="json"></pre>
+      </section>
+
+      <section class="grid">
+        <div class="panel">
+          <h2>API</h2>
+          <pre><code>POST /api/unfurl
+Content-Type: application/json
+
+{"url":"http://host.docker.internal:4000/"}</code></pre>
+        </div>
+        <div class="panel">
+          <h2>Runtime</h2>
+          <p>Node.js v24.22.0 with undici 8.12.3. The response body is always consumed so the preview can inspect metadata.</p>
+        </div>
+      </section>
+    </main>
+    <script>
+      const form = document.querySelector('#unfurl-form');
+      const result = document.querySelector('#result');
+      const output = document.querySelector('#json');
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        output.textContent = 'Fetching...';
+        result.hidden = false;
+        try {
+          const response = await fetch('/api/unfurl', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url: document.querySelector('#url').value }),
+          });
+          output.textContent = JSON.stringify(await response.json(), null, 2);
+        } catch (error) {
+          output.textContent = String(error);
+        }
+      });
+    </script>
+  </body>
+</html>

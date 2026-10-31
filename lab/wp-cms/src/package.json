@@ -1,0 +1,10 @@
+{
+  "name": "node2shell-lab-wp-cms",
+  "private": true,
+  "version": "1.0.0",
+  "description": "WordPress-style CMS lab for Node2Shell",
+  "license": "MIT",
+  "dependencies": {
+    "express": "5.3.0"
+  }
+}

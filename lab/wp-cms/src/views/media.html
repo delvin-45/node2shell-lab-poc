@@ -1,0 +1,17 @@
+<p class="eyebrow">Media library</p>
+<h1>Add media</h1>
+<p class="lede">The dashboard form posts here. The JSON route below is the documented test sink.</p>
+<form class="panel" method="post" action="/wp-admin/media">
+  <label for="media-url">Source URL</label>
+  <input id="media-url" name="url" type="url" placeholder="https://example.test/image.png" required>
+  <label for="media-title">Title</label>
+  <input id="media-title" name="title" type="text" placeholder="Untitled">
+  <button type="submit">Add media</button>
+</form>
+<div class="panel note">
+  <h2>JSON route</h2>
+  <pre><code>POST /wp-json/wp/v2/media
+Content-Type: application/json
+Content-Encoding: br</code></pre>
+  <p>The route uses <code>express.json()</code> with its default 100 kB limit.</p>
+</div>

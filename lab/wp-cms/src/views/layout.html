@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <title>{{siteName}}</title>
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+  <body>
+    <div class="admin-bar">
+      <span>Node2Shell Press</span>
+      <nav aria-label="Admin bar">
+        <a href="/">Visit site</a>
+        <a href="/wp-admin/">Dashboard</a>
+        <a href="/wp-admin/media">Add media</a>
+        <a href="/wp-admin/import">Import</a>
+      </nav>
+    </div>
+    <header class="masthead">
+      <a class="brand" href="/">{{siteName}}</a>
+      <p class="tagline">Notes from a small, deliberately vulnerable publication desk.</p>
+    </header>
+    <div class="shell">
+      <main id="content">{{content}}</main>
+      <aside class="sidebar">
+        <section>
+          <h2>About</h2>
+          <p>A WordPress-style CMS on Node.js. This is a controlled lab, not a public service.</p>
+        </section>
+        <section>
+          <h2>Routes</h2>
+          <ul>
+            <li><code>/wp-json/wp/v2/posts</code></li>
+            <li><code>/wp-json/wp/v2/media</code></li>
+            <li><code>/wp-json/node2shell/v1/import</code></li>
+          </ul>
+        </section>
+        <section>
+          <h2>Categories</h2>
+          <ul><li>Research</li><li>Runtime</li><li>Operations</li></ul>
+        </section>
+      </aside>
+    </div>
+    <footer>
+      <p>{{siteName}} · lab build · {{year}}</p>
+    </footer>
+  </body>
+</html>

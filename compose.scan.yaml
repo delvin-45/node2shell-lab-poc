@@ -1,0 +1,26 @@
+name: node2shell-lab-scan
+
+services:
+  wp-cms:
+    platform: linux/amd64
+    build:
+      context: ./lab/wp-cms
+      dockerfile: Dockerfile
+    ports:
+      - "127.0.0.1:19200:3000"
+
+  unfurl-api:
+    platform: linux/amd64
+    build:
+      context: ./lab/unfurl-api
+      dockerfile: Dockerfile
+    ports:
+      - "127.0.0.1:19201:3000"
+
+  reference-express:
+    platform: linux/amd64
+    build:
+      context: ./lab/reference-express
+      dockerfile: Dockerfile
+    ports:
+      - "127.0.0.1:19202:3000"

