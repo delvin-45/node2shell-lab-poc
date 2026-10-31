@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this lab or its evidence in research, cite the repository."
+type: software
+title: "Node2Shell Lab: CVE-2026-111497 Brotli decoder PoC"
+version: 1.0.0
+date-released: "2026-10-31"
+license: MIT
+repository-code: "https://github.com/Delvin-45/node2shell-lab-poc"
+url: "https://github.com/Delvin-45/node2shell-lab-poc"
+authors:
+  - family-names: "Alvazri"
+    given-names: "Delvin"
+    alias: "Delvin-45"
+    email: "delvinalvazri45@gmail.com"
+keywords:
+  - "CVE-2026-111497"
+  - "Brotli"
+  - "Node.js"
+  - "security research"
+  - "proof of concept"
+abstract: "A loopback-only research lab with a stdlib-only reproducer and raw evidence for the Brotli decoder out-of-bounds write in affected Node.js releases."
