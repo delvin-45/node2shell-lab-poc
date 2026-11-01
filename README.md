@@ -123,10 +123,12 @@ sebagai `USER node`.
   <img src="docs/assets/demos/ref-express-rce.gif" alt="Rekaman VHS proof RCE Reference Express" width="100%">
 </p>
 
-Rekaman animasi di atas adalah hasil VHS dari lab reference, bukan mockup.
-Rekaman memperlihatkan `poc.py` publik berjalan terhadap container loopback,
-termasuk loop retry setelah tebakan ASLR meleset. Run hanya berakhir ketika
-target mengembalikan output `id` baru yang memuat `uid=` dan `gid=`.
+Rekaman animasi di atas direkam langsung dari lab reference di mesin ini
+menggunakan VHS. Rekaman ini bukan mockup, bukan animasi buatan, dan bukan
+rekaman yang diambil dari repo lain. Isinya memperlihatkan `poc.py` yang ada di
+repo ini berjalan terhadap container loopback, termasuk loop retry setelah
+tebakan ASLR meleset. Run hanya berakhir ketika target mengembalikan output
+`id` baru yang memuat `uid=` dan `gid=`.
 
 <p align="center">
   <a href="docs/assets/demos/ref-express-rce.mp4">MP4</a> ·
