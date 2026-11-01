@@ -1,173 +1,174 @@
 <p align="center">
-  <img src="docs/assets/banner.png" alt="Node2Shell Lab — CVE-2026-111497 Brotli decoder research" width="100%">
+  <img src="docs/assets/banner.png" alt="Node2Shell Lab — riset decoder Brotli CVE-2026-111497" width="100%">
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/CVE--2026--111497-research-7c3aed?style=for-the-badge" alt="CVE-2026-111497">
+  <img src="https://img.shields.io/badge/CVE--2026--111497-riset-7c3aed?style=for-the-badge" alt="CVE-2026-111497">
   <img src="https://img.shields.io/badge/Node.js-24.22.0-339933?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js 24.22.0">
   <img src="https://img.shields.io/badge/Docker-linux%2Famd64-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker">
   <img src="https://img.shields.io/badge/Python-3.11%2B-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.11+">
-  <img src="https://img.shields.io/badge/Verification-2%2F2%20fresh%20runs-2ea043?style=for-the-badge" alt="Verification">
-  <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="MIT License">
-  <img src="https://img.shields.io/badge/CISA%20KEV-check%20catalog-6b7280?style=for-the-badge" alt="CISA KEV catalog">
+  <img src="https://img.shields.io/badge/Verifikasi-2%2F2%20run%20baru-2ea043?style=for-the-badge" alt="Verifikasi">
+  <img src="https://img.shields.io/badge/Lisensi-MIT-yellow?style=for-the-badge" alt="Lisensi MIT">
+  <img src="https://img.shields.io/badge/CISA%20KEV-cek%20katalog-6b7280?style=for-the-badge" alt="Katalog CISA KEV">
 </p>
 
 <h1 align="center">Node2Shell Lab</h1>
 
 <p align="center">
-  A loopback-only reproduction bench for the Brotli decoder out-of-bounds write<br>
-  bundled with affected Node.js releases.
+  Lab reproduksi loopback untuk out-of-bounds write pada decoder Brotli<br>
+  yang dibundel dengan rilis Node.js terdampak.
 </p>
 
 ---
 
-## Overview
+## Gambaran Umum
 
-Node2Shell Lab is a controlled security research environment for
-**CVE-2026-111497**. It packages three small applications, an exact-profile
-Python proof of concept, patched controls, and raw evidence from fresh
-containers.
+Node2Shell Lab adalah lingkungan riset keamanan terkontrol untuk
+**CVE-2026-111497**. Repo ini memuat tiga aplikasi kecil, proof of concept
+Python dengan profil exact, kontrol patched, dan bukti mentah dari container
+yang baru dibuat.
 
-The repository is deliberately narrow: one runtime, one trigger, and a small
-number of well-defined application shapes. The goal is not to provide a
-production exploit kit. The goal is to make every claim reproducible, auditable,
-and easy to compare against the fixed runtime.
+Cakupannya sengaja dibuat sempit: satu runtime utama, satu trigger, dan beberapa
+bentuk aplikasi yang terdefinisi. Tujuannya bukan menyediakan exploit kit
+produksi. Tujuannya adalah membuat setiap klaim dapat direproduksi, diaudit, dan
+dibandingkan langsung dengan runtime yang sudah diperbaiki.
 
 > [!IMPORTANT]
-> The RCE results are exact-profile and probabilistic. They depend on the pinned
-> binary, package lock, one libuv worker, accepted socket descriptor 19, and an
-> ASLR-dependent layout. They are not general claims about every Node.js
-> deployment.
+> Hasil RCE bersifat exact-profile dan probabilistik. Hasil ini bergantung pada
+> binary dan package lock yang dikunci, satu worker libuv, file descriptor 19
+> untuk socket yang diterima, serta layout yang bergantung pada ASLR. Ini bukan
+> klaim umum untuk semua deployment Node.js.
 
-### Verification snapshot
+### Ringkasan verifikasi
 
-| Claim | Result | Evidence |
+| Klaim | Hasil | Bukti |
 | --- | --- | --- |
-| Reference Express RCE | **2/2 PASS** | [run 1](docs/evidence/ref-express-rce-run1.txt) · [run 2](docs/evidence/ref-express-rce-run2.txt) |
-| WordPress-style CMS RCE | **2/2 PASS** | [run 1](docs/evidence/wp-cms-rce-run1.txt) · [run 2](docs/evidence/wp-cms-rce-run2.txt) |
-| WordPress-style CMS DoS | **2/2 PASS** | [run 1](docs/evidence/wp-cms-dos-run1.txt) · [run 2](docs/evidence/wp-cms-dos-run2.txt) |
-| Unfurl API DoS | **2/2 PASS** | [run 1](docs/evidence/unfurl-api-dos-run1.txt) · [run 2](docs/evidence/unfurl-api-dos-run2.txt) |
-| Patched controls | **3/3 FAIL CLOSED** | [matrix](docs/evidence/MATRIX.md) |
+| RCE Reference Express | **2/2 PASS** | [run 1](docs/evidence/ref-express-rce-run1.txt) · [run 2](docs/evidence/ref-express-rce-run2.txt) |
+| RCE WordPress-style CMS | **2/2 PASS** | [run 1](docs/evidence/wp-cms-rce-run1.txt) · [run 2](docs/evidence/wp-cms-rce-run2.txt) |
+| DoS WordPress-style CMS | **2/2 PASS** | [run 1](docs/evidence/wp-cms-dos-run1.txt) · [run 2](docs/evidence/wp-cms-dos-run2.txt) |
+| DoS Unfurl API | **2/2 PASS** | [run 1](docs/evidence/unfurl-api-dos-run1.txt) · [run 2](docs/evidence/unfurl-api-dos-run2.txt) |
+| Kontrol patched | **3/3 FAIL CLOSED** | [matriks](docs/evidence/MATRIX.md) |
 
-The full claim boundary, timestamps, and hashes are in
+Batas klaim lengkap, timestamp, dan hash tersedia di
 [`docs/evidence/MATRIX.md`](docs/evidence/MATRIX.md).
 
 ---
 
-## Contents
+## Daftar Isi
 
-- [Architecture](#architecture)
-- [Labs](#labs)
+- [Arsitektur](#arsitektur)
+- [Lab](#lab)
 - [Demo](#demo)
-- [Screenshots](#screenshots)
-- [Quick Start](#quick-start)
-- [Verified Results](#verified-results)
-- [Technical Summary](#technical-summary)
-- [Affected and Fixed Versions](#affected-and-fixed-versions)
-- [Mitigations](#mitigations)
-- [Repository Layout](#repository-layout)
-- [Tooling](#tooling)
-- [Scope and Limitations](#scope-and-limitations)
-- [Responsible Use](#responsible-use)
-- [References](#references)
+- [Tangkapan Layar](#tangkapan-layar)
+- [Mulai Cepat](#mulai-cepat)
+- [Hasil Verifikasi](#hasil-verifikasi)
+- [Ringkasan Teknis](#ringkasan-teknis)
+- [Versi Terdampak dan Diperbaiki](#versi-terdampak-dan-diperbaiki)
+- [Mitigasi](#mitigasi)
+- [Struktur Repositori](#struktur-repositori)
+- [Perkakas](#perkakas)
+- [Cakupan dan Batasan](#cakupan-dan-batasan)
+- [Penggunaan yang Bertanggung Jawab](#penggunaan-yang-bertanggung-jawab)
+- [Referensi](#referensi)
 
 ---
 
-## Architecture
+## Arsitektur
 
 ```mermaid
 flowchart LR
-  C[Client] --> S[HTTP surface]
+  C[Client] --> S[Permukaan HTTP]
   S -->|"Content-Encoding: br"| P[express.json]
-  S -->|"URL to import"| F[fetch / undici]
-  P --> D[Bundled Brotli decoder]
+  S -->|"URL untuk diimpor"| F[fetch / undici]
+  P --> D[Decoder Brotli bawaan]
   F --> D
-  D --> B[Block-type switch]
+  D --> B[Switch block-type]
   B --> O[Out-of-bounds write]
-  O --> X[DoS / exact-profile RCE]
+  O --> X[DoS / RCE exact-profile]
 ```
 
-The inbound path inflates a request body before JSON validation. The outbound
-path fetches an attacker-controlled response and consumes it completely. Both
-paths reach the decoder inside the Node.js process before application code can
-inspect the content.
+Jalur masuk menginflasi body request sebelum JSON divalidasi. Jalur keluar
+mengambil response yang dikendalikan penyerang lalu mengonsumsinya sampai
+habis. Kedua jalur mencapai decoder di dalam proses Node.js sebelum kode
+aplikasi sempat memeriksa isinya.
 
 ---
 
-## Labs
+## Lab
 
-| Lab | Application shape | Runtime | Primary result |
+| Lab | Bentuk aplikasi | Runtime | Hasil utama |
 | --- | --- | --- | --- |
-| [`labs/wp-cms`](labs/wp-cms/) | WordPress-style CMS, JSON media route, import-by-URL | Node.js v24.22.0 | RCE 2/2; DoS 2/2 |
-| [`labs/unfurl-api`](labs/unfurl-api/) | Link unfurler using undici 8.12.3 | Node.js v24.22.0 | DoS 2/2; RCE not claimed |
-| [`labs/reference-express`](labs/reference-express/) | Minimal Express fixture preserving the exact RCE profile | Node.js v24.22.0 | RCE 2/2; DoS 2/2 |
+| [`labs/wp-cms`](labs/wp-cms/) | CMS bergaya WordPress, route media JSON, impor lewat URL | Node.js v24.22.0 | RCE 2/2; DoS 2/2 |
+| [`labs/unfurl-api`](labs/unfurl-api/) | Link unfurler dengan undici 8.12.3 | Node.js v24.22.0 | DoS 2/2; RCE tidak diklaim |
+| [`labs/reference-express`](labs/reference-express/) | Fixture Express minimal untuk mempertahankan profil RCE exact | Node.js v24.22.0 | RCE 2/2; DoS 2/2 |
 
-Each lab has a `Dockerfile`, a `Dockerfile.patched`, a loopback health endpoint,
-a restart supervisor, and a lab-specific README. All images run as `USER node`.
+Setiap lab memiliki `Dockerfile`, `Dockerfile.patched`, endpoint health
+loopback, supervisor restart, dan README khusus lab. Semua image berjalan
+sebagai `USER node`.
 
-### Sinks
+### Sink
 
 | Lab | Sink | Path |
 | --- | --- | --- |
-| WordPress-style CMS | Brotli-decoded JSON request body | `POST /wp-json/wp/v2/media` |
-| WordPress-style CMS | Fetched response body | `POST /wp-json/node2shell/v1/import` |
-| Unfurl API | Fetched response body | `POST /api/unfurl` |
-| Reference Express | Brotli-decoded JSON request body | `POST /upload` |
+| WordPress-style CMS | Body JSON yang didekode Brotli | `POST /wp-json/wp/v2/media` |
+| WordPress-style CMS | Body response hasil fetch | `POST /wp-json/node2shell/v1/import` |
+| Unfurl API | Body response hasil fetch | `POST /api/unfurl` |
+| Reference Express | Body JSON yang didekode Brotli | `POST /upload` |
 
 ---
 
 ## Demo
 
 <p align="center">
-  <img src="docs/assets/demos/ref-express-rce.gif" alt="VHS recording of the reference Express RCE proof" width="100%">
+  <img src="docs/assets/demos/ref-express-rce.gif" alt="Rekaman VHS proof RCE Reference Express" width="100%">
 </p>
 
-The animated capture above is a VHS recording of the reference lab, not a
-mockup. It shows the public `poc.py` running against a loopback container,
-including the retry loop used after a missed ASLR guess. The run ends only when
-the target returns fresh `id` output containing both `uid=` and `gid=`.
+Rekaman animasi di atas adalah hasil VHS dari lab reference, bukan mockup.
+Rekaman memperlihatkan `poc.py` publik berjalan terhadap container loopback,
+termasuk loop retry setelah tebakan ASLR meleset. Run hanya berakhir ketika
+target mengembalikan output `id` baru yang memuat `uid=` dan `gid=`.
 
 <p align="center">
   <a href="docs/assets/demos/ref-express-rce.mp4">MP4</a> ·
-  <a href="docs/assets/demos/ref-express-rce.ascii">Terminal transcript</a> ·
+  <a href="docs/assets/demos/ref-express-rce.ascii">Transkrip terminal</a> ·
   <a href="docs/assets/demos/ref-express-rce.tape">VHS tape</a> ·
-  <a href="docs/evidence/ref-express-rce-run1.txt">Raw evidence</a>
+  <a href="docs/evidence/ref-express-rce-run1.txt">Bukti mentah</a>
 </p>
 
-### Additional recordings
+### Rekaman tambahan
 
-| Recording | What it shows | Formats |
+| Rekaman | Isi | Format |
 | --- | --- | --- |
-| WordPress CMS RCE | JSON media sink returns fresh `id` output | [GIF](docs/assets/demos/wp-cms-rce.gif) · [MP4](docs/assets/demos/wp-cms-rce.mp4) · [ASCII](docs/assets/demos/wp-cms-rce.ascii) |
-| WordPress CMS DoS | Import sink becomes unavailable; 4/4 health checks fail | [GIF](docs/assets/demos/wp-cms-dos.gif) · [MP4](docs/assets/demos/wp-cms-dos.mp4) · [ASCII](docs/assets/demos/wp-cms-dos.ascii) |
-| Unfurl API DoS | Fetch path becomes unavailable; 4/4 health checks fail | [GIF](docs/assets/demos/unfurl-api-dos.gif) · [MP4](docs/assets/demos/unfurl-api-dos.mp4) · [ASCII](docs/assets/demos/unfurl-api-dos.ascii) |
-| Passive scan | Bounded triage of the three Compose labs | [GIF](docs/assets/demos/passive-scan.gif) · [MP4](docs/assets/demos/passive-scan.mp4) · [ASCII](docs/assets/demos/passive-scan.ascii) |
+| RCE WordPress CMS | Sink media JSON mengembalikan output `id` baru | [GIF](docs/assets/demos/wp-cms-rce.gif) · [MP4](docs/assets/demos/wp-cms-rce.mp4) · [ASCII](docs/assets/demos/wp-cms-rce.ascii) |
+| DoS WordPress CMS | Sink impor menjadi tidak tersedia; 4/4 health check gagal | [GIF](docs/assets/demos/wp-cms-dos.gif) · [MP4](docs/assets/demos/wp-cms-dos.mp4) · [ASCII](docs/assets/demos/wp-cms-dos.ascii) |
+| DoS Unfurl API | Jalur fetch menjadi tidak tersedia; 4/4 health check gagal | [GIF](docs/assets/demos/unfurl-api-dos.gif) · [MP4](docs/assets/demos/unfurl-api-dos.mp4) · [ASCII](docs/assets/demos/unfurl-api-dos.ascii) |
+| Pemindaian pasif | Triage terbatas terhadap tiga lab Compose | [GIF](docs/assets/demos/passive-scan.gif) · [MP4](docs/assets/demos/passive-scan.mp4) · [ASCII](docs/assets/demos/passive-scan.ascii) |
 
 ---
 
-## Screenshots
+## Tangkapan Layar
 
 <p align="center">
-  <img src="docs/assets/screenshots/wp-cms-home.png" alt="WordPress-style CMS front page" width="49%">
-  <img src="docs/assets/screenshots/unfurl-api.png" alt="Link Unfurl API tester" width="49%">
+  <img src="docs/assets/screenshots/wp-cms-home.png" alt="Halaman depan CMS bergaya WordPress" width="49%">
+  <img src="docs/assets/screenshots/unfurl-api.png" alt="Tester Link Unfurl API" width="49%">
 </p>
 
 <p align="center">
-  <sub>Captured with headless Chrome from the running lab containers. The CMS dashboard is available in <a href="docs/assets/screenshots/wp-cms-admin.png">this screenshot</a>.</sub>
+  <sub>Diambil dengan headless Chrome dari container lab yang berjalan. Dashboard CMS tersedia di <a href="docs/assets/screenshots/wp-cms-admin.png">tangkapan layar ini</a>.</sub>
 </p>
 
 ---
 
-## Quick Start
+## Mulai Cepat
 
-### Requirements
+### Kebutuhan
 
-- Docker Desktop or Docker Engine with Linux `amd64` support
+- Docker Desktop atau Docker Engine dengan dukungan Linux `amd64`
 - Python 3.11+
-- GNU Make, or the equivalent commands from the lab READMEs
-- Port `3000` free on loopback
+- GNU Make, atau perintah setara dari README tiap lab
+- Port `3000` tersedia di loopback
 
-### Deterministic DoS check
+### Uji DoS deterministik
 
 ```bash
 make lab-a
@@ -175,7 +176,7 @@ make poc-a
 make clean
 ```
 
-Expected result:
+Hasil yang diharapkan:
 
 ```text
 PASS: DoS verified through the declared network interface
@@ -183,7 +184,7 @@ postcondition=service unavailable
 healthchecks_failed=4/4
 ```
 
-### Exact-profile RCE check
+### Uji RCE exact-profile
 
 ```bash
 make lab-ref
@@ -191,7 +192,7 @@ make poc-ref
 make clean
 ```
 
-One observed run ended with:
+Salah satu run yang diamati berakhir dengan:
 
 ```text
 PASS: RCE verified by fresh id output through the declared interface
@@ -201,35 +202,34 @@ proof_stdout=uid=1000(node) gid=1000(node) groups=1000(node)
 successful_attempt=8
 ```
 
-The attempt count varies with the address-space layout.
+Jumlah attempt dapat berubah tergantung layout address space.
 
-### Full deterministic gate
+### Pemeriksaan deterministik lengkap
 
 ```bash
 make verify
 ```
 
-`make verify` cleans the workspace, rebuilds all affected and patched images,
-runs the self-test, verifies the two DoS labs, and checks all three patched
-controls. RCE remains a separate two-container evidence run because it is
-probabilistic.
+`make verify` membersihkan workspace, membangun ulang semua image affected dan
+patched, menjalankan self-test, memverifikasi dua lab DoS, lalu memeriksa ketiga
+kontrol patched. RCE tetap dijalankan terpisah karena bersifat probabilistik.
 
 ---
 
-## Verified Results
+## Hasil Verifikasi
 
-The verification protocol is intentionally simple:
+Protokol verifikasinya sengaja dibuat sederhana:
 
-1. Build the exact image from the checked-in Dockerfile and package lock.
-2. Start a fresh container.
-3. Run `poc.py` through the declared loopback interface.
-4. Accept a PASS only with fresh `uid=` and `gid=` output, or four consecutive
-   failed health checks.
-5. Repeat in a second fresh container.
-6. Run the same request against the v24.22.1 control and require
-   `ERR__ERROR_FORMAT_BLOCK_SWITCH` with `/health` still available.
+1. Bangun image exact dari Dockerfile dan package lock yang ada di repo.
+2. Jalankan container baru.
+3. Jalankan `poc.py` melalui interface loopback yang dideklarasikan.
+4. Terima PASS hanya jika ada output `uid=` dan `gid=` baru, atau empat health
+   check yang gagal berturut-turut.
+5. Ulangi di container baru kedua.
+6. Kirim request yang sama ke kontrol v24.22.1 dan wajibkan
+   `ERR__ERROR_FORMAT_BLOCK_SWITCH` dengan `/health` tetap tersedia.
 
-| Profile | Claim | Attempts | Status |
+| Profil | Klaim | Attempt | Status |
 | --- | --- | ---: | --- |
 | `n2s-ref-express-24.22.0-x86_64` | RCE | 8, 7 | PASS 2/2 |
 | `n2s-wp-24.22.0-x86_64` | RCE | 1, 1 | PASS 2/2 |
@@ -237,100 +237,100 @@ The verification protocol is intentionally simple:
 | `n2s-wp-24.22.0-x86_64` | DoS | 1, 1 | PASS 2/2 |
 | `n2s-unfurl-24.22.0-x86_64` | DoS | 1, 1 | PASS 2/2 |
 
-Checksums for every transcript are in
-[`docs/evidence/SHA256SUMS`](docs/evidence/SHA256SUMS). The negative evidence is
-equally important: no RCE is claimed for the unfurl profile, and the 22.x/26.x
-release lines were not re-tested here.
+Checksum setiap transkrip ada di
+[`docs/evidence/SHA256SUMS`](docs/evidence/SHA256SUMS). Bukti negatif sama
+pentingnya: tidak ada RCE yang diklaim untuk profil unfurl, dan lini rilis 22.x
+serta 26.x tidak diuji ulang di sini.
 
 ---
 
-## Technical Summary
+## Ringkasan Teknis
 
-The vulnerable component is the Brotli decoder in `c/dec/decode.c`, compiled
-into affected Node.js binaries. A malformed stream drives a block-type switch
-branch past the bounds of its destination buffer, corrupting decoder state and
-adjacent heap memory. The first visible effect is usually a process crash. Under
-the exact layout captured in `profiles.json`, the corruption can influence
-control flow and return fresh `id` output on the exploited socket.
+Komponen rentan adalah decoder Brotli di `c/dec/decode.c`, yang dikompilasi ke
+dalam binary Node.js terdampak. Stream cacat memaksa cabang switch block-type
+menulis melewati batas buffer tujuan, merusak state decoder dan heap di
+sekitarnya. Efek pertama yang terlihat biasanya adalah crash proses. Pada layout
+exact yang tercatat di `profiles.json`, korupsi tersebut dapat memengaruhi alur
+kontrol dan mengembalikan output `id` baru pada socket yang dieksploitasi.
 
-The trigger digest is a hard invariant:
+Digest trigger adalah invariant keras:
 
 ```text
 b7a6508eb39ef57ae5e3fdf9aa85540071a06eff5d5b5a2d359fc8e1768e4df4
 ```
 
-`python poc.py --self-test` rebuilds the stream and fails if the digest or size
-changes. CI runs the same check.
+`python poc.py --self-test` membangun ulang stream dan gagal jika digest atau
+ukurannya berubah. CI menjalankan pemeriksaan yang sama.
 
-### Why compressed bodies matter
+### Mengapa body terkompresi penting
 
-`Content-Encoding: br` moves the decoder ahead of JSON validation. A server-side
-fetch that reads a compressed response reaches the same decoder through normal
-body consumption. A JSON body limit reduces exposure but does not repair the
-decoder. The runtime patch is the actual fix.
+`Content-Encoding: br` memindahkan decoder ke depan validasi JSON. Fetch di sisi
+server yang membaca response terkompresi mencapai decoder yang sama melalui
+konsumsi body normal. Batas ukuran body JSON mengurangi paparan, tetapi tidak
+memperbaiki decoder. Patch runtime adalah perbaikan yang sebenarnya.
 
 ---
 
-## Affected and Fixed Versions
+## Versi Terdampak dan Diperbaiki
 
-Only the Node.js v24.22.0 and v24.22.1 images are re-tested in this repository.
+Hanya image Node.js v24.22.0 dan v24.22.1 yang diuji ulang di repo ini.
 
-| Release line | Reported affected | Fixed | Re-tested |
+| Lini rilis | Dilaporkan terdampak | Diperbaiki | Diuji ulang |
 | --- | --- | --- | --- |
-| Node.js 22.x | 22.23.3 and earlier | 22.23.4 | No |
-| Node.js 24.x | 24.22.0 and earlier | 24.22.1 | Yes, both sides |
-| Node.js 26.x | 26.12.0 and earlier | 26.12.1 | No |
-| Node.js 20.x | End-of-life | Upgrade | No |
+| Node.js 22.x | 22.23.3 dan sebelumnya | 22.23.4 | Tidak |
+| Node.js 24.x | 24.22.0 dan sebelumnya | 24.22.1 | Ya, kedua sisi |
+| Node.js 26.x | 26.12.0 dan sebelumnya | 26.12.1 | Tidak |
+| Node.js 20.x | End-of-life | Upgrade | Tidak |
 
-| Role | Image digest |
+| Peran | Digest image |
 | --- | --- |
 | Affected | `node@sha256:925de64a85319052d6971ae81ef2417da956e8a3a2c4a0fac732327970f017f5` |
-| Patched control | `node@sha256:6449e19d8184d84062525b6a7524def03146c2cb04a7f08b076680d0e8e4240a` |
+| Kontrol patched | `node@sha256:6449e19d8184d84062525b6a7524def03146c2cb04a7f08b076680d0e8e4240a` |
 
 ---
 
-## Mitigations
+## Mitigasi
 
-1. Upgrade to Node.js v24.22.1, v22.23.4, or v26.12.1 according to the release
-   line, and pin the image by digest.
-2. If Brotli is built separately, use the fixed upstream release, 1.2.1 or
-   later.
-3. Reduce request body limits and reject encodings the application does not
-   need. Treat this as defense in depth, not a decoder fix.
-4. Run HTTP workers with resource limits and a restart supervisor so one decoder
-   crash does not take down the host.
-5. Allowlist outbound fetch destinations and cap response sizes.
-6. Do not assume "it only crashes" when the process handles untrusted
-   compressed data.
+1. Upgrade ke Node.js v24.22.1, v22.23.4, atau v26.12.1 sesuai lini rilis, dan
+   kunci image berdasarkan digest.
+2. Jika Brotli dibangun terpisah, gunakan rilis upstream yang sudah diperbaiki,
+   yaitu 1.2.1 atau lebih baru.
+3. Turunkan batas ukuran body request dan tolak encoding yang tidak dibutuhkan
+   aplikasi. Anggap ini sebagai pertahanan berlapis, bukan perbaikan decoder.
+4. Jalankan worker HTTP dengan resource limit dan supervisor restart agar satu
+   crash decoder tidak menjatuhkan seluruh host.
+5. Batasi tujuan fetch keluar dan batasi ukuran response.
+6. Jangan berasumsi "hanya crash" saat proses menangani data terkompresi dari
+   pihak yang tidak dipercaya.
 
 ---
 
-## Repository Layout
+## Struktur Repositori
 
 ```text
 .
 ├── deploy/
-│   ├── compose.scan.yaml         # Three labs on loopback ports 19200-19202
-│   └── targets.txt               # Passive scanner asset list
+│   ├── compose.scan.yaml         # Tiga lab pada port loopback 19200-19202
+│   └── targets.txt               # Daftar aset untuk scanner pasif
 ├── docs/
 │   ├── assets/
 │   │   ├── banner.png
-│   │   ├── demos/                # VHS tapes, GIF/MP4, ASCII transcripts
-│   │   └── screenshots/          # Real headless-Chrome captures
+│   │   ├── demos/                # VHS tape, GIF/MP4, transkrip ASCII
+│   │   └── screenshots/          # Tangkapan asli headless Chrome
 │   ├── architecture.md
 │   ├── exploit-walkthrough.md
 │   ├── troubleshooting.md
 │   ├── faq.md
 │   ├── authorized-use.md
-│   ├── evidence/                 # Raw logs, checksums, claim matrix
-│   ├── labs/                     # Application-specific notes
-│   └── index.html                # Dependency-free GitHub Pages landing page
+│   ├── evidence/                 # Log mentah, checksum, matriks klaim
+│   ├── labs/                     # Catatan khusus aplikasi
+│   └── index.html                # Landing page GitHub Pages tanpa dependensi
 ├── labs/
 │   ├── wp-cms/
 │   ├── unfurl-api/
 │   └── reference-express/
 ├── tools/
-│   └── scan.py                   # Passive three-asset triage
+│   └── scan.py                   # Triage pasif tiga aset
 ├── .github/
 │   ├── SECURITY.md
 │   ├── CONTRIBUTING.md
@@ -343,82 +343,82 @@ Only the Node.js v24.22.0 and v24.22.1 images are re-tested in this repository.
 └── LICENSE
 ```
 
-Generated ZIP files, local caches, `node_modules`, Python bytecode, and old lab
-variants are intentionally excluded.
+File ZIP hasil generate, cache lokal, `node_modules`, bytecode Python, dan varian
+lab lama sengaja tidak disertakan.
 
 ---
 
-## Tooling
+## Perkakas
 
-| Command | Purpose |
+| Perintah | Fungsi |
 | --- | --- |
-| `make self-test` | Rebuild the trigger and verify its digest |
-| `make lab-a` | Start the CMS lab on loopback |
-| `make poc-a` | Run the CMS DoS check |
-| `make poc-a-rce` | Run the CMS exact-profile RCE attempt |
-| `make lab-b` | Start the unfurl API |
-| `make poc-b` | Run the unfurl DoS check |
-| `make lab-ref` | Start the reference Express lab with supervisor |
-| `make poc-ref` | Run the reference RCE attempt |
-| `make patched` | Build all patched control images |
-| `make verify` | Clean, build, run self-test, DoS checks, and controls |
-| `make demo` | Re-render the passive scan VHS recording |
-| `make clean` | Remove lab containers, images, and Python cache |
+| `make self-test` | Bangun ulang trigger dan verifikasi digest-nya |
+| `make lab-a` | Jalankan lab CMS di loopback |
+| `make poc-a` | Jalankan uji DoS CMS |
+| `make poc-a-rce` | Jalankan percobaan RCE exact-profile CMS |
+| `make lab-b` | Jalankan unfurl API |
+| `make poc-b` | Jalankan uji DoS unfurl |
+| `make lab-ref` | Jalankan lab Reference Express dengan supervisor |
+| `make poc-ref` | Jalankan percobaan RCE reference |
+| `make patched` | Bangun semua image kontrol patched |
+| `make verify` | Bersihkan, bangun, jalankan self-test, uji DoS, dan kontrol |
+| `make demo` | Render ulang rekaman VHS pemindaian pasif |
+| `make clean` | Hapus container, image lab, dan cache Python |
 
-[`tools/scan.py`](tools/scan.py) performs bounded HEAD/GET triage only. It never
-sends the malformed stream and never invokes the PoC.
-
----
-
-## Scope and Limitations
-
-- The RCE result is exact-profile: pinned Node.js v24.22.0, Debian bookworm,
-  Express 5.3.0/body-parser 2.4.0, `UV_THREADPOOL_SIZE=1`, accepted socket
-  descriptor 19, and the restart supervisor.
-- ASLR placement is probabilistic. A failed attempt proves nothing about
-  safety.
-- The unfurl profile claims denial of service only. No RCE was attempted or
-  claimed for it.
-- Only the v24.22.0 and v24.22.1 images were re-tested. Reported 22.x and 26.x
-  fixed boundaries were not verified on this machine.
-- Evidence was produced on Docker Desktop for Windows with Linux `amd64`
-  containers. Native Node.js, ARM, Windows containers, and other libc layouts
-  are out of scope.
-- The CISA KEV badge links to the catalog for status checking; this repository
-  does not independently assert a listing.
-- `tools/scan.py` is passive triage, not an exploitability decision engine.
+[`tools/scan.py`](tools/scan.py) hanya melakukan triage HEAD/GET terbatas. Alat
+ini tidak pernah mengirim stream cacat dan tidak pernah memanggil PoC.
 
 ---
 
-## Responsible Use
+## Cakupan dan Batasan
 
-Use this repository only against the included loopback labs on a machine you
-control, or against a system for which you have explicit written authorization.
-The PoC accepts only `127.0.0.1`, `::1`, and `localhost`, requires the port from
-the selected profile, and executes only `/usr/bin/id` for the RCE proof.
-
-Read [authorized use](docs/authorized-use.md) and the
-[security policy](.github/SECURITY.md) before running the labs on a shared host.
-
----
-
-## References
-
-- [Node.js October 2026 security releases](https://nodejs.org/en/blog/vulnerability/october-2026-security-releases)
-- [Upstream Brotli decoder fix](https://github.com/google/brotli/commit/0ed4268a4401abcb44720963)
-- [Vercel Node.js security bulletin](https://vercel.com/kb/bulletin/node-js-security-advisory)
-- [CISA Known Exploited Vulnerabilities catalog](https://www.cisa.gov/known-exploited-vulnerabilities-catalog)
-- [Express body-parser documentation](https://expressjs.com/en/resources/middleware/body-parser.html)
-- [undici documentation](https://undici.nodejs.org/)
-- [Architecture](docs/architecture.md) · [Exploit walkthrough](docs/exploit-walkthrough.md) · [FAQ](docs/faq.md)
+- Hasil RCE bersifat exact-profile: Node.js v24.22.0 yang dikunci, Debian
+  bookworm, Express 5.3.0/body-parser 2.4.0, `UV_THREADPOOL_SIZE=1`, file
+  descriptor 19 untuk socket yang diterima, dan supervisor restart.
+- Penempatan ASLR bersifat probabilistik. Percobaan yang gagal tidak
+  membuktikan bahwa target aman.
+- Profil unfurl hanya mengklaim denial of service. Tidak ada RCE yang dicoba
+  atau diklaim untuk profil tersebut.
+- Hanya image v24.22.0 dan v24.22.1 yang diuji ulang. Batas perbaikan 22.x dan
+  26.x yang dilaporkan belum diverifikasi di mesin ini.
+- Bukti dibuat di Docker Desktop untuk Windows dengan container Linux `amd64`.
+  Node.js native, ARM, container Windows, dan layout libc lain di luar cakupan.
+- Badge CISA KEV hanya menautkan ke katalog untuk pengecekan status; repo ini
+  tidak mengklaim sendiri bahwa CVE tercantum di sana.
+- `tools/scan.py` adalah triage pasif, bukan mesin keputusan exploitability.
 
 ---
 
-## License
+## Penggunaan yang Bertanggung Jawab
 
-MIT © 2026 Delvin Alvazri. See [LICENSE](LICENSE) and
+Gunakan repo ini hanya terhadap lab loopback yang disertakan di mesin yang Anda
+kendalikan, atau terhadap sistem yang Anda punya izin tertulis eksplisit untuk
+diuji. PoC hanya menerima `127.0.0.1`, `::1`, dan `localhost`, mewajibkan port
+dari profil yang dipilih, dan hanya menjalankan `/usr/bin/id` untuk proof RCE.
+
+Baca [panduan penggunaan](docs/authorized-use.md) dan
+[kebijakan keamanan](.github/SECURITY.md) sebelum menjalankan lab di host
+bersama.
+
+---
+
+## Referensi
+
+- [Rilis keamanan Node.js Oktober 2026](https://nodejs.org/en/blog/vulnerability/october-2026-security-releases)
+- [Perbaikan decoder Brotli upstream](https://github.com/google/brotli/commit/0ed4268a4401abcb44720963)
+- [Buletin keamanan Node.js dari Vercel](https://vercel.com/kb/bulletin/node-js-security-advisory)
+- [Katalog CISA Known Exploited Vulnerabilities](https://www.cisa.gov/known-exploited-vulnerabilities-catalog)
+- [Dokumentasi Express body-parser](https://expressjs.com/en/resources/middleware/body-parser.html)
+- [Dokumentasi undici](https://undici.nodejs.org/)
+- [Arsitektur](docs/architecture.md) · [Panduan exploit](docs/exploit-walkthrough.md) · [FAQ](docs/faq.md)
+
+---
+
+## Lisensi
+
+MIT © 2026 Delvin Alvazri. Lihat [LICENSE](LICENSE) dan
 [CITATION.cff](CITATION.cff).
 
 <p align="center">
-  <sub>Maintained by Delvin-45 · Built for loopback research, not for third-party systems.</sub>
+  <sub>Dikelola oleh Delvin-45 · Dibuat untuk riset loopback, bukan untuk sistem pihak ketiga.</sub>
 </p>
